@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="info.css"/>
+        <link rel="stylesheet" href="main.css"/>
+        <link rel="stylesheet" href="login.css"/>
+    </head>
+
+    <body>
+        <!--Header Nav-->
+        
+        <div class = "container">
+            <div id="headerNav" class="navbar">
+                <div class="col col-6">
+                    
+                </div>
+                <div class="col-2 align-self-end">
+                    <p id="pointBal">Log in to view points balance</p>
+                </div>
+                <div class="col align-self-end">
+                    
+                    <button type="button" data-bs-custom-class="logCustom" id="loginStart" data-bs-html="true" data-bs-toggle="popover" data-bs-placement="bottom">
+                        <span class="bi-person"></span> Log in
+                    </button>
+                    <!--Hidden div for popover-->
+                    <div id="popoverContent" style="display: none;">
+                        
+                        <form>
+                            <fieldset>
+                            <h1>Log in</h1>
+                            <label class="logStyle" id="Laccount" for="TBuser">ACCOUNT NUMBER/USERNAME</label><br/>
+                            <input type="text" id="TBuser" name="TBuser"/><br/>
+                            <label class="logStyle" id="Lpass" for="TBpass">PASSWORD</label><br/>
+                            <input type="text" id="TBpass" name="TBpass"/><br/>
+                            <div class="logOptions">
+                                <label for="CBremember">Remember me</label>
+                                <input type="checkbox" id="CBremember" name="CBremember"/>
+                                <div id="registration">
+                                    Not a member?
+                                    <a id="register" href="#">Enroll now!</a>
+                                </div>
+                                <button id="logBtn" type="button">Log in</button> 
+                            </div>
+                            </fieldset>
+                        
+                    </div>
+                </div>
+                <div class="col">
+                    <a class="headLinks" href="#">Create account</a>
+                </div>
+                <div class="col">
+                    <a class="headLinks" href="#">Espa&#241ol <span class="bi-globe"></span></a>
+                </div>
+            </div>
+        </div>
+        <!--Booking Nav-->
+        <div id="bookNav" class="container">
+            <nav class="navbar navbar-expand-xl">
+                <div class="col-3 col-6">
+                    <a href="#" class="navbar-brand"><img id="logo" src="images/Logo.png" alt="Southwest Airlines brand name"/></a>
+                </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><span class="navLink"><a class="nav-link" href="#">FLIGHT | HOTEL | CAR | VACATIONS | CRUISES</a></span></li>
+                        <li class="nav-item"><span class="navLink"><a class="nav-link" href="#">SPECIAL OFFERS</a></span></li>
+                        <li class="nav-item"><span class="navLink"><a class="nav-link" href="#">RAPID REWARDS</a></span></li>
+                        <li class="nav-item"><span class="navLink"><a class="nav-link" href="info.html">FAST PASS</a></span></li>
+                        <li class="search-container nav-item"><span class="navLink"><a class="nav-link bi-search" href="#"></a></span></li>
+                    </ul>
+            </nav>
+        </div>
+        <!--Banner-->
+        <div class="title-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="title">Fast Pass</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Potential Navbar here?-->
+
+        <!--Main Body-->
+        <div class="info-body">
+            <div class="info-wrapper">
+                <div class="container">
+                    <div>
+                        <h2 style="color:white; font-weight: bold;">Tired of the long lines? Want insurance in case your flight gets cancelled? We got you covered!</h2>
+                        <p style="color:white; font-weight: bold;">Make sure your trips go exactly as planned and purchase a Fast Pass <a href="registration.html" class="register-link" style="color:#ffbf27" alt="Registration link">here!</a> </p>
+                    </div>
+                    <div class="info-section container">
+                        <h2>What does a Fast Pass get you?</h2>
+                        <p>With a Fast Pass you will be able to skip the long check-in lines getting quicker access to the plane as well as your preferred seat options!</p>
+                        <p>Select up to three other flights to use your Fast Pass on. Enjoy insurance that if your original flight gets cancelled you have backups at no extra cost!</p>
+                    </div>
+
+                    <div class="info-section container">
+                        <p>Content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.6.9"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.13"></script>
+        <script src="main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+
+</html>
