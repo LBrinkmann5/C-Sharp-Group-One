@@ -29,9 +29,26 @@
     font-weight: bold;
 }
 
+
+.info-col {
+    background-color: #ffbf27;
+    
+}
+
+.info-col-contain .info-col:not(:first-child) {
+    margin-left: 20px;
+}
+
 .info-section > h2 {
     color:#1a2c80;
     -webkit-text-stroke-width: 2px;
+    margin-bottom: 2em;
+    text-align: center;
+}
+
+.info-col > img {
+    width: 150px;
+    margin: 1em 0 2em 4em;
 }
 
 .info-section ~ .info-section{
