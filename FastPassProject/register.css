@@ -11,7 +11,15 @@
     border-style: solid;
     border-color: #f5f5f5;
     width: 100%;
+    padding:30px 30px;
 }
+
+.enroll-member-container {
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .register-wrapper{
     margin-bottom: 40px;
 }
@@ -30,7 +38,6 @@
     border:1px solid #ffbf27;
     border-radius:2px;
     box-shadow: 0 1px #8f8f8f;
-
     transition: background-color .3s ease-out,background .3s ease-out,border .3s ease-out,box-shadow .3s ease-out,color .3s ease-out,opacity .3s ease-out;
     transition-property: background-color, background, border, box-shadow, color, opacity;
     transition-duration: 0.3s, 0.3s, 0.3s, 0.3s, 0.3s, 0.3s;
@@ -55,3 +62,4 @@
     transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
     transition-behavior: normal, normal, normal, normal, normal, normal;
 }
+

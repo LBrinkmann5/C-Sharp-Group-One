@@ -1,3 +1,18 @@
+* {padding:0;
+margin:0}
+html, body {
+    overflow: auto !important;
+    scrollbar-width: none !important;
+}
+
+.labelStyle{
+    font-weight: bold;
+    font-size: 11px;
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar{
+    display: none !important;
+}
 body {
     font-family: Arial;
     font-size: 1rem;
@@ -75,3 +90,19 @@ body {
     text-decoration: underline;
 }
 
+.subNavWrapper {
+    background-color: #304cb2;
+    padding-bottom: 0.6em;
+}
+.subNavWrapper a {
+    color: white;
+    font-weight:bold;
+    font-size: 1.4em;
+}
+.subNavWrapper li{
+    width:10em;
+}
+.subNavLink a:hover {
+    color:white;
+    text-decoration: underline;
+}

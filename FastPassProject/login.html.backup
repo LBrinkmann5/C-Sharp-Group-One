@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang =en>
+    <head>
+        <link rel="stylesheet" href="login.css"/>
+        <link rel="stylesheet" href="main.css"/>
+        <meta charset="UTF-8">
+        
+    </head>
+
+    <body>
+        <main>
+            <header>
+                <img id="logo" src="images/Logo.png"/>
+            </header>
+
+            <div>
+                
+                
+                <form>
+                    <fieldset>
+                        <h1>Log in</h1>
+                        <label id="Laccount" for="TBuser">Account Number/Username</label><br/>
+                        <input  type="text" id="TBuser" name="TBuser"/><br/>
+                        <label id="Lpass" for="TBpass">Password</label><br/>
+                        <input type="text" id="TBpass" name="TBpass"/><br/>
+                        <div class="logOptions">
+                            <label for="CBremember">Remember me</label>
+                            <input type="checkbox" id="CBremember" name="CBremember"/>
+                            <div>
+                                <p class="register">Not a member?</p>
+                                <a id="register" href="#">Enroll now!</a>
+                            </div>
+                        
+                            <button type="button">Log in</button> 
+                        </div>                 
+                    </fieldset>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>
