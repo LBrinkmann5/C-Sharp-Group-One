@@ -30,7 +30,6 @@
 }
 
 .btnCreate {
-    margin-left:85%;
     padding: 0 18px;
     background-color: #ffbf27;
     font-family: Arial;
@@ -53,6 +52,7 @@
 
 .form-submit{
     padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .btnCreate:hover
