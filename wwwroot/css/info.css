@@ -1,0 +1,89 @@
+ @media only screen and (max-width: 600px){
+
+
+}
+
+@media only screen and (min-width: 600px){
+
+}
+
+@media only screen and (min-width: 800px){
+
+    .info-col-contain .info-col:not(:first-child) {
+    margin-left: 20px;
+    }
+}
+
+@media only screen and (min-width: 1280px){
+
+}
+
+body {
+    background-color:#1a2c80;
+    background: linear-gradient(90deg, rgba(23,39,118,1) 0%, rgba(39,60,147,1) 48%, rgba(23,39,118,1) 100%);
+}
+
+.info-wrapper {
+    background: url("../images/SWA_Cabin2.png") no-repeat;
+    background-size: cover;
+    height: 10%;
+    padding-top: 5em;
+    padding-bottom: 30em;
+}
+.info-body {
+
+    height: 110vh;
+}
+
+.info-section  {
+    background-color: white;
+    margin-top:10em;
+    padding-top:3em;
+    padding-bottom:3em;
+    font-weight: bold;
+
+}
+
+
+.info-col {
+    background-color: #ffbf27;
+
+}
+
+/* .info-col-contain .info-col:not(:first-child) {
+    margin-left: 20px;
+} */
+
+.info-col-contain {
+    width: 100%;
+}
+
+.info-section > h2 {
+    color:#1a2c80;
+    -webkit-text-stroke-width: 2px;
+    margin-bottom: 2em;
+    text-align: center;
+}
+
+.info-col img {
+    width: 50%;
+    margin: 1em 0 2em 0;
+    position: relative;
+    left: 20%;
+}
+
+.info-col p:not(:first-child){
+    padding: 0 2em;
+}
+
+
+.info-section ~ .info-section{
+    margin-top: 3em;
+}
+.register-link{
+    text-decoration: none;
+}
+
+.register-link:hover{
+    text-decoration: underline;
+}

@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["Title"] = "Fast Pass";
+    ViewData["PageHead"] = "Fast Pass";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
+    <body>
+    <!--Main Body-->
+    <div class="info-body">
+        <div class="info-wrapper">
+            <div class="container-sm">
+                <div>
+                    <h2 style="color:white; font-weight: bold;">Tired of the long lines? Want insurance in case your flight gets cancelled? We got you covered!</h2>
+                    <p style="color:white; font-weight: bold;">Make sure your trips go exactly as planned and purchase a Fast Pass <a asp-action="registration" class="register-link" style="color:#ffbf27" alt="Registration link">here!</a> </p>
+                </div>
+                <div class="info-section">
+                    <h2 info-title>What does a Fast Pass get you?</h2>
+                    <hr>
+                    <div class="info-col-contain row justify-content-center gy-5 gy-md-0 gx-0">
+
+                        <div class="info-col col-12 col-md-3">
+                            <p style="text-align: center; font-size: 1.4em; padding-top: 30px;">No more waiting!</p>
+                            <img src="images/FastTime.png" alt="Fast moving clock" draggable="false" />
+                            <p> Why wait? With a Fast Pass you will be able to skip the long check-in lines getting quicker access to the plane as well as your preferred seat options!</p>
+                        </div>
+                        <div class="info-col col-12 col-md-3">
+                            <p style="text-align: center; font-size: 1.4em; padding-top: 30px;">You have backups!</p>
+                            <img src="images/checking_in.png" alt="Passenger speaking with attendant" draggable="false" />
+                            <p> Things going wrong? Good thing you have options! With your Fast Pass select three other flights to use it on. Enjoy insurance that if your original flight gets cancelled you have backups at no extra cost!</p>
+                        </div>
+                        <div class="info-col col-12 col-md-3">
+                            <p style="text-align: center; font-size: 1.4em; padding-top: 30px;">You first!</p>
+                            <img src="images/baggage.png" alt="Baggage" draggable="false" />
+                            <p>Need to rebook? You have priority! These things happen and as a Fast Pass holder we'll handle your needs first!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

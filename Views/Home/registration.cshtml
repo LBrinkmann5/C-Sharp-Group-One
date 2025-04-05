@@ -1,0 +1,133 @@
+﻿
+@{
+    Layout = null;
+}
+@model Registration;
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="~/css/main.css"/>
+        <link rel="stylesheet" href="~/css/login.css"/>
+        <link rel="stylesheet" href="~/css/register.css"/>
+        <title>Registration</title>
+    </head>
+
+    <body>
+        <!--Header Nav-->
+        <div class = "container">
+            <nav id="headerNav" class="navbar navbar-expand">
+                <div class="col-md-11"></div>
+                <div class="col-3 offset-9 offset-md-0 col-md-1">
+                    <ul class="navbar-nav">
+                    <li class="nav-link"><a class="headLinks" draggable="false" href="#">Espa&#241ol <span class="bi-globe"></span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!--Booking Nav-->
+        <div id="bookNav" class="container">
+            <nav class="navbar navbar-expand-xl">
+                <div class="col-3 col-6">
+                    <a href="#" class="navbar-brand"><img id="logo" src="~/images/Logo.png" draggable="false" alt="Southwest Airlines brand name"/></a>
+                </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><span class="navLink"><a class="nav-link" draggable="false" href="#">FLIGHT | HOTEL | CAR | VACATIONS | CRUISES</a></span></li>
+                        <li class="nav-item"><span class="navLink"><a class="nav-link" draggable="false" href="#">SPECIAL OFFERS</a></span></li>
+                        <li class="nav-item"><span class="navLink"><a class="nav-link" draggable="false" href="#">RAPID REWARDS</a></span></li>
+                        <li class="nav-item"><span class="navLink"><a class="nav-link" draggable="false" asp-action="info">FAST PASS</a></span></li>
+                        <li class="search-container nav-item"><span class="navLink"><a class="nav-link bi-search" draggable="false" href="#"></a></span></li>
+                    </ul>
+            </nav>
+        </div>
+        <!--Banner-->
+        <div class="title-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="title">Create Account</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Main Body-->
+        <div class="container">
+            <section class="register-wrapper"></section>
+            <form id="customer_register" name="customer_register" asp-action="registration" method="post">
+                <div class="row enroll-member-container">
+                    <div class="col-12">
+                        <fieldset class="enroll-member">
+                            <legend>Create a Username and Password</legend>
+                            <div class="row justify-content-center">
+                                <div class="col-6">
+                                    <label class="labelStyle" id="Laccount" asp-for="TBuser">USERNAME</label>
+                                    <input type="text" id="TBuser" asp-for="TBuser"/><p><span asp-validation-for="TBuser" class="text-danger"></span></p>
+                                </div>
+                                <div class="col-6">
+                                    <label class="labelStyle" id="Lpass" asp-for="TBpass">PASSWORD</label>
+                                    <span class="passInfo d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="A minimum of 10 characters. A capital letter, a special character, and a number is required. Phrase passwords allowed.">
+                                        <a class="bi-info-circle" disabled ></a>
+                                    </span>
+                                <input type="password" id="TBpass" asp-for="TBpass" /><a class="btn btnShow bi-eye-fill" id="btnShow" role="button"></a><p id="passError"> <span asp-validation-for="TBpass" class="text-danger"></span></p>
+                            </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="labelStyle" id="LBemail" asp-for="TBemail">EMAIL</label><br/>
+                                    <input type="email" id="TBemail" asp-for="TBemail"/><p><span asp-validation-for="TBemail" class="text-danger"></span></p>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row enroll-member-container">
+                    <div class="col-12">
+                        <fieldset class="enroll-member">
+                            <legend>Tell us about yourself</legend>
+                            <div class="row justify-content-center">
+                                <div class="col-6">
+                                    <label class="labelStyle" id="LBfname" asp-for="TBfname">FIRST NAME</label>
+                                    <input type="text" id="TBfname" asp-for="TBfname"/><p><span asp-validation-for="TBfname" class="text-danger"></span></p>
+                                </div>
+                                <div class="col-6">
+                                    <label class="labelStyle" id="LBlName" asp-for="TBlname">LAST NAME</label>
+                                    <input type="text" id="TBlname" asp-for="TBlname"/><p><span asp-validation-for="TBlname" class="text-danger"></span></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                 <div class="col-6">
+                                     <label class="labelStyle" id="LBphone" for="LBphone">PHONE NUMBER</label>
+                                     <input type="tel" id="TBphone" name="TBphone"/><p><span asp-validation-for="TBphone" class="text-danger"></span></p>
+                                 </div>
+                                 <div class="col-6">
+                                     <label class="labelStyle" id="LBaddress" asp-for="TBaddress">HOME ADDRESS</label>
+                                     <input type="text" id="TBaddress" asp-for="TBaddress"/><p><span asp-validation-for="TBaddress" class="text-danger"></span></p>
+                                 </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                
+                <div class="form-submit">
+                    <div class="row justify-content-end">
+                        <div class="col-12">
+                            <button class="btnCreate" id="btnCreate" type="submit">Create Account</button>
+                        </div>
+                    </div>
+                </div>                
+            </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="~/js/main.js"></script>
+        <script src="~/js/register.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@@floating-ui/core@1.6.9"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@@floating-ui/dom@1.6.13"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+
+</html>
