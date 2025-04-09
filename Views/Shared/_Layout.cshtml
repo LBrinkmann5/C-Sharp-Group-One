@@ -26,6 +26,8 @@
                         {
                             <li class="nav-link">
                                 <a class="headLinks" draggable="false" href="#">Welcome, @User.FindFirst("FirstName")?.Value</a>
+                                @* <a class="headLinks" draggable="false" href="#">Welcome, @User.FindFirst("FirstName").Value</a> *@
+                                <a class="headLinks" draggable="false" href="#">Welcome, @User.Identity.Name </a>
                             </li>
 							<li class="nav-link">
                                 <form id="logoutForm" asp-action="Logout" method="post">
