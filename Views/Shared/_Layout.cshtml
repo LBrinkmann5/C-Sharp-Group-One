@@ -25,7 +25,8 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-link">
-                                <a class="headLinks" draggable="false" href="#">Welcome, @User.FindFirst("FirstName")?.Value</a>
+                                @* <a class="headLinks" draggable="false" href="#">Welcome, @User.FindFirst("FirstName").Value</a> *@
+                                <a class="headLinks" draggable="false" href="#">Welcome, @User.Identity.Name </a>
                             </li>
 							<li class="nav-link">
                                 <form id="logoutForm" asp-action="Logout" method="post">
@@ -90,7 +91,7 @@
                 <nav class="navbar navbar-expand-md">
                     <div class="col-3 col-6">
                         <a asp-action="info" class="navbar-brand">
-                            <img id="logo" src="images/Logo.png"
+                            <img id="logo" src="~/images/Logo.png"
                                  alt="Southwest Airlines brand name" />
                         </a>
                     </div>
@@ -129,7 +130,7 @@
                 <nav class="subNavbar navbar navbar-expand-xl">
                     <ul class="navbar-nav">
                         <li class="nav-item"><span class="subNavLink"><a asp-action="info" class="nav-link">About</a></span></li>
-                        <li class="nav-item"><span class="subNavLink"><a href="booking.cshtml" class="nav-link">Booking</a></span></li>
+                        <li class="nav-item"><span class="subNavLink"><a asp-action="purchase" class="nav-link">Purchase</a></span></li>
                     </ul>
                 </nav>
             </div>

@@ -12,11 +12,26 @@ namespace Southwest_Airlines.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserListService _userListService;
-        public HomeController(UserListService userListService)
+
+        private readonly DBUserList _DBUserListservice;
+        //public HomeController(UserListService userListService)
+        //{
+        //    _userListService = userListService;
+
+        //}
+
+        public HomeController(DBUserList DBUserListservice)
         {
-            _userListService = userListService;
+            _DBUserListservice = DBUserListservice;
         }
+
+        public async Task<IActionResult> TestConsoleOutput()
+        {
+            await _DBUserListservice.GetDataAsync();
+            return Content("Check console for output.");
+        }
+
+        //Display Pages
         [HttpGet]
         public IActionResult info()
         {
@@ -27,19 +42,25 @@ namespace Southwest_Airlines.Controllers
             return View();
         }
 
+        public IActionResult purchase()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(Login loginInfo, string returnUrl)
         {
 
             if (ModelState.IsValid)
             {
-                var user = _userListService.GetUserByName(loginInfo.TBuser);
-                if (user != null && _userListService.VerifyPassword(loginInfo.TBuser, loginInfo.TBpass))
+                bool isValidUser = await _DBUserListservice.VerifyLoginAsync(loginInfo.TBuser, loginInfo.TBpass);
+                if (isValidUser)
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, user.TBuser),
-                        new Claim("FirstName", user.TBfname)
+                        new Claim(ClaimTypes.Name, loginInfo.TBuser),
+                        //new Claim("FirstName", user.TBfname)
+
                     };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
@@ -67,12 +88,21 @@ namespace Southwest_Airlines.Controllers
         }
 
         [HttpPost]
-        public IActionResult registration(Registration registrationInfo)
+        public async Task<IActionResult> registration(Registration registrationInfo)
         {
             if (ModelState.IsValid)
             {
-                _userListService.AddUser(registrationInfo);
-                System.Diagnostics.Debug.WriteLine(_userListService.GetUsers().Count);
+                bool isRegistered = await _DBUserListservice.RegisterUserAsync(registrationInfo);
+                if (isRegistered)
+                {
+                    return RedirectToAction("info");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Registration failed. Please try again.");
+                }
+                //_userListService.AddUser(registrationInfo);
+                //System.Diagnostics.Debug.WriteLine(_userListService.GetUsers().Count);
                 return RedirectToAction("info");
             }
             else
