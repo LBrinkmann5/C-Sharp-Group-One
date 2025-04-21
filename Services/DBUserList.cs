@@ -13,36 +13,36 @@ namespace Southwest_Airlines.Services
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-        //To Test Console Output
-        public async Task<List<string>> GetDataAsync()
-        {
-            var results = new List<string>();
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                string query = "SELECT username FROM users";
-                using ( var command = new MySqlCommand(query, connection))
-                {
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            string username = reader.GetString(0);
-                            results.Add(username);
-                            Console.WriteLine(results.Count());
-                        }
-                    }
-                }
-            }
-            return results;
-        }
+        ////To Test Console Output
+        //public async Task<List<string>> GetDataAsync()
+        //{
+        //    var results = new List<string>();
+        //    using (var connection = new MySqlConnection(_connectionString))
+        //    {
+        //        await connection.OpenAsync();
+        //        string query = "SELECT username FROM users";
+        //        using ( var command = new MySqlCommand(query, connection))
+        //        {
+        //            using (var reader = await command.ExecuteReaderAsync())
+        //            {
+        //                while (await reader.ReadAsync())
+        //                {
+        //                    string username = reader.GetString(0);
+        //                    results.Add(username);
+        //                    Console.WriteLine(results.Count());
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return results;
+        //}
         //To Login
         public async Task<bool> VerifyLoginAsync(string username, string password)
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT password_hash FROM users WHERE username = @username";
+                string query = "SELECT password_hash FROM users WHERE LOWER(username) = LOWER(@username)";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);

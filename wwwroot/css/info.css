@@ -1,4 +1,4 @@
- @media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px){
 
 
 }
@@ -8,7 +8,6 @@
 }
 
 @media only screen and (min-width: 800px){
-
     .info-col-contain .info-col:not(:first-child) {
     margin-left: 20px;
     }

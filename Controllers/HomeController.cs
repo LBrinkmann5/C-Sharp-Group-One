@@ -24,12 +24,11 @@ namespace Southwest_Airlines.Controllers
         {
             _DBUserListservice = DBUserListservice;
         }
-
-        public async Task<IActionResult> TestConsoleOutput()
-        {
-            await _DBUserListservice.GetDataAsync();
-            return Content("Check console for output.");
-        }
+        //public async Task<IActionResult> TestConsoleOutput()
+        //{
+        //    await _DBUserListservice.GetDataAsync();
+        //    return Content("Check console for output.");
+        //}
 
         //Display Pages
         [HttpGet]
@@ -44,6 +43,12 @@ namespace Southwest_Airlines.Controllers
 
         public IActionResult purchase()
         {
+            return View();
+        }
+
+        public IActionResult payment(int passType)
+        {
+            ViewBag.PassChoice = new PassChoice { PassType = passType };
             return View();
         }
 
@@ -101,8 +106,6 @@ namespace Southwest_Airlines.Controllers
                 {
                     ModelState.AddModelError("", "Registration failed. Please try again.");
                 }
-                //_userListService.AddUser(registrationInfo);
-                //System.Diagnostics.Debug.WriteLine(_userListService.GetUsers().Count);
                 return RedirectToAction("info");
             }
             else
@@ -117,6 +120,13 @@ namespace Southwest_Airlines.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("info");
 
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> purchased()
+        {
+            return RedirectToAction("info");
         }
     }
 }

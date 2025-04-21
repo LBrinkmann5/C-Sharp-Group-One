@@ -1,0 +1,126 @@
+﻿
+@{
+	ViewData["Title"] = "Payment";
+	ViewBag.PageHead = "Enter Payment";
+}
+<html>
+<head>
+	<link rel="stylesheet" href="~/css/payment.css" />
+</head>
+@{
+	var passChoice = ViewBag.PassChoice as PassChoice;
+	var passType = passChoice?.PassType;
+	if (passType != null && passType == 1)
+	{
+		ViewBag.FastPassType = "Individual Pass";
+		ViewBag.FastPassPrice = "24.99";
+	}
+	else if (passType != null && passType == 2)
+	{
+		ViewBag.FastPassType = "Group Pass";
+		ViewBag.FastPassPrice = "74.99";
+	}
+	else
+	{
+		ViewBag.FastPassType = "Unknown Pass Type";
+		ViewBag.FastPassPrice = "0.00";
+	}
+}
+<body>
+	<div class="container">
+		<form asp-action="purchased" id="payment-form" name="payment-form" method="post">
+			<div class="payment-back">
+				<fieldset class="payment-set">
+					<legend>Credit Card Information</legend>
+					<label class="me-md-2" for="cardNumber">Card Number:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-50" type="text" id="cardNumber" name="cardNumber" required>
+
+					<div class="w-100 d-inline-block"></div>
+
+					<label class="me-md-2" for="securityCode">Security Code:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25 p-1" type="text" id="securityCode" name="securityCode" placeholder="123" required>
+
+
+
+					<div class="w-100 d-block d-md-none"></div>
+					<label class="mx-md-3" for="expiryDate">Expiry Date:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25  p-1" type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+
+					<div class="w-100 d-inline-block"></div>
+
+					<label for="cardName">Cardholder Name:</label>
+					<input class="w-75" type="text" id="cardName" name="cardName" required>
+				</fieldset>
+
+				<fieldset class="payment-set">
+					<legend>Billing Address</legend>
+					<label class="w-100" for="Country">Country</label>
+					<select class="w-75 countrySelect" id="Country" name="Country" required>
+						<option value="" disabled selected>Select a country</option>
+						<option value="US">United States</option>
+						<option value="CA">Canada</option>
+						<option value="MX">Mexico</option>
+						<!-- Add more countries as needed -->
+					</select>
+					<div class="w-100 d-inline-block"></div>
+					<label class="w-100" for="Address">Address:</label>
+					<input class="w-75" type="text" id="Address" name="Address" required>
+
+					<div class="w-100 d-inline-block"></div>
+
+					<label class="w-100" for="optionalAddress">Apt/Suite: </label>
+
+					<input class="w-75" type="text" id="optionalAddress" name="optionalAddress" placeholder="Optional">
+					<div class="w-100 d-inline-block"></div>
+
+					<label class="me-md-2" for="City">City:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25" type="text" id="City" name="City" required>
+					<div class="w-100 d-block d-md-none"></div>
+					<label class="mx-md-3" for="State">State:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25" type="text" id="State" name="State" required>
+					<div class="w-100 d-block d-md-none"></div>
+					<label class="mx-md-3" for="Zip">Zip Code:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25" type="text" id="Zip" name="Zip" required>
+
+					<div class="w-100 d-inline-block"></div>
+
+					<label class="w-100" for="Phone">Phone Number:</label>
+					<input class="w-75" type="tel" id="Phone" name="Phone" placeholder="123-456-7890" required>
+				</fieldset>
+
+				@{
+					if(passType == 2 && passType != null)
+					{
+						<fieldset class="payment-set">
+							<legend>Passengers</legend>
+							<label class="me-md-2" for="passNum">How many Passengers?</label>
+							<select class="w-25" id="passNum" name="passNum">
+								<option value="" disabled selected>Select number of passengers</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+							</select>
+						</fieldset>
+					}
+				}
+
+				<fieldset class="payment-set">
+					<legend>Order Summary</legend>
+					<p class="order-summary">You are purchasing a Fast Pass for <span class="fast-pass-type">@ViewBag.FastPassType</span> at a price of <span class="fast-pass-price">$@ViewBag.FastPassPrice</span>.</p>
+					<button type="submit" class="btnSubmit my-3">Buy</button>
+				</div>
+			</form>
+		</div>
+	</body>
+
+</html>
+

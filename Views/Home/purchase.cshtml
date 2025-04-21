@@ -4,5 +4,50 @@
 	ViewData["PageHead"] = "Purchase a Fast Pass";
 }
 
+<html>
+	<head>
+		<link rel="stylesheet" href="~/css/purchase.css" />
+	</head>
+
+	<body>
+		<div class="purchase-body container">
+		<div class="row body-section text-center justify-content-center">
+			<div class="col col-md-6 purchase-col" >
+				<img class="purchase-image" draggable="false" src="~/images/man-checking-bag.png" alt="Individual man checking in luggage." />
+				<h2>
+					Individual Pass
+				</h2>
+				<ul class="pass-benefits">
+					<li>Covers round trip ticket purchases</li>
+					<li>Good for one ticket</li>
+					<li>Priority seating and baggage</li>
+				</ul>
+				<form method="get" asp-action="payment">
+					<input type="hidden" name="passType" value="1" />
+					<button class="btn btn-light btnPurchase">$24.99</button>
+				</form>
+			</div>
+			<div class="w-100 d-block d-md-none"></div>
+			<div class="col col-md-6 offset-md-1 purchase-col">
+				<img class="purchase-image" src="~/images/HappyFamily.jpeg" alt="Family Walking to Terminal" />
+				<h2>
+					Group Pass
+				</h2>
+				<ul class="pass-benefits">
+					<li> Covers round trip ticket purchases</li>
+					<li> Covers 4 guests and more(charge of $10 for additional members up to 9)</>
+					<li> Higher priority over individual passes.</li>
+				</ul>
+				<form method="get" asp-action="payment">
+					<input type="hidden" name="passType" value="2" />
+					<button class="btn btn-light btnPurchase">$74.99</button>
+				</form>
+			</div>
+
+			<p class="disclaimer">Disclaimer: You may not use a Group Pass without at least 4 registered members present.</p>
+			</div>
+		</div>
+	</body>
+</html>
 
 
