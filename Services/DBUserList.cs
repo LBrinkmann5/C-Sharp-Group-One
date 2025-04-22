@@ -64,19 +64,31 @@ namespace Southwest_Airlines.Services
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = @"INSERT INTO users (username, password_hash, phone_number, email, home_address) VALUES (@username, @password_hash, @email, @phone_number, @home_address)";
-                using (var command = new MySqlCommand(query, connection))
+                //try
+                //{
+                    string query = @"INSERT INTO users (username, first_name, last_name, email, password_hash, home_address,  phone_number  ) VALUES (@username, @first_name, @last_name, @email, @password_hash, @home_address,  @phone_number)";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        Console.WriteLine($"Last Name: {registration.TBlname}");
+                        Console.WriteLine($"Last Name Length: {registration.TBlname?.Length}");
+                        command.Parameters.AddWithValue("@username", registration.TBuser);
+                        command.Parameters.AddWithValue("@password_hash", BCrypt.Net.BCrypt.HashPassword(registration.TBpass));
+                        command.Parameters.AddWithValue("@email", registration.TBemail);
+                        command.Parameters.AddWithValue("@phone_number", registration.TBphone);
+                        command.Parameters.AddWithValue("@home_address", registration.TBaddress);
+                        command.Parameters.AddWithValue("@first_name", registration.TBfname);
+                        command.Parameters.AddWithValue("@last_name", registration.TBlname?.Trim());
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+                        return rowsAffected > 0;
+                    }
+                //}
+                /*catch (MySqlException ex)
                 {
-                    command.Parameters.AddWithValue("@username", registration.TBuser);
-                    command.Parameters.AddWithValue("@password_hash", BCrypt.Net.BCrypt.HashPassword(registration.TBpass));
-                    command.Parameters.AddWithValue("@email", registration.TBemail);
-                    command.Parameters.AddWithValue("@phone_number", registration.TBphone);
-                    command.Parameters.AddWithValue("@home_address", registration.TBaddress);
-                    //command.Parameters.AddWithValue("@fname", registration.TBfname);
-                    //command.Parameters.AddWithValue("@lname", registration.TBlname);
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
-                    return rowsAffected > 0;
-                }
+                    // Log the exception or handle it as needed
+                    Console.WriteLine($"Error during registration: {ex.Message}");
+                    return false;
+                }*/
             }
         }
     }

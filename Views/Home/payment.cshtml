@@ -12,12 +12,12 @@
 	var passType = passChoice?.PassType;
 	if (passType != null && passType == 1)
 	{
-		ViewBag.FastPassType = "Individual Pass";
+		ViewBag.FastPassType = "Individual Fast Pass";
 		ViewBag.FastPassPrice = "24.99";
 	}
 	else if (passType != null && passType == 2)
 	{
-		ViewBag.FastPassType = "Group Pass";
+		ViewBag.FastPassType = "Group Fast Pass";
 		ViewBag.FastPassPrice = "74.99";
 	}
 	else
@@ -32,33 +32,33 @@
 			<div class="payment-back">
 				<fieldset class="payment-set">
 					<legend>Credit Card Information</legend>
-					<label class="me-md-2" for="cardNumber">Card Number:</label>
+					<label class="me-md-2" for="TBcardNumber">Card Number:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-50" type="text" id="cardNumber" name="cardNumber" required>
+					<input class="w-50" type="text" id="TBcardNumber" name="TBcardNumber" required><span></span>
 
 					<div class="w-100 d-inline-block"></div>
 
-					<label class="me-md-2" for="securityCode">Security Code:</label>
+					<label class="me-md-2" for="TBsecurityCode">Security Code:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25 p-1" type="text" id="securityCode" name="securityCode" placeholder="123" required>
+					<input class="w-25 p-1" type="text" id="TBsecurityCode" name="TBsecurityCode" placeholder="123" required>
 
 
 
 					<div class="w-100 d-block d-md-none"></div>
-					<label class="mx-md-3" for="expiryDate">Expiry Date:</label>
+					<label class="mx-md-3" for="TBexpiryDate">Expiry Date:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25  p-1" type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+					<input class="w-25  p-1" type="text" id="TBexpiryDate" name="expiryDate" placeholder="MM/YY" required>
 
 					<div class="w-100 d-inline-block"></div>
 
-					<label for="cardName">Cardholder Name:</label>
-					<input class="w-75" type="text" id="cardName" name="cardName" required>
+					<label for="TBcardName">Cardholder Name:</label>
+					<input class="w-75" type="text" id="TBcardName" name="TBcardName" required>
 				</fieldset>
 
 				<fieldset class="payment-set">
 					<legend>Billing Address</legend>
-					<label class="w-100" for="Country">Country</label>
-					<select class="w-75 countrySelect" id="Country" name="Country" required>
+					<label class="w-100" for="Selcountry">Country</label>
+					<select class="w-75 countrySelect" id="Selcountry" name="Selcountry" required>
 						<option value="" disabled selected>Select a country</option>
 						<option value="US">United States</option>
 						<option value="CA">Canada</option>
@@ -66,32 +66,32 @@
 						<!-- Add more countries as needed -->
 					</select>
 					<div class="w-100 d-inline-block"></div>
-					<label class="w-100" for="Address">Address:</label>
-					<input class="w-75" type="text" id="Address" name="Address" required>
+					<label class="w-100" for="TBaddress">Address:</label>
+					<input class="w-75" type="text" id="TBaddress" name="TBaddress" required>
 
 					<div class="w-100 d-inline-block"></div>
 
-					<label class="w-100" for="optionalAddress">Apt/Suite: </label>
+					<label class="w-100" for="TBoptionalAddress">Apt/Suite: </label>
 
-					<input class="w-75" type="text" id="optionalAddress" name="optionalAddress" placeholder="Optional">
+					<input class="w-75" type="text" id="TBoptionalAddress" name="TBoptionalAddress" placeholder="Optional">
 					<div class="w-100 d-inline-block"></div>
 
-					<label class="me-md-2" for="City">City:</label>
+					<label class="me-md-2" for="TBcity">City:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25" type="text" id="City" name="City" required>
+					<input class="w-25" type="text" id="TBcity" name="TBcity" required>
 					<div class="w-100 d-block d-md-none"></div>
-					<label class="mx-md-3" for="State">State:</label>
+					<label class="mx-md-3" for="TBstate">State:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25" type="text" id="State" name="State" required>
+					<input class="w-25" type="text" id="TBstate" name="TBstate" required>
 					<div class="w-100 d-block d-md-none"></div>
-					<label class="mx-md-3" for="Zip">Zip Code:</label>
+					<label class="mx-md-3" for="TBzip">Zip Code:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25" type="text" id="Zip" name="Zip" required>
+					<input class="w-25" type="text" id="TBzip" name="TBzip" required>
 
 					<div class="w-100 d-inline-block"></div>
 
-					<label class="w-100" for="Phone">Phone Number:</label>
-					<input class="w-75" type="tel" id="Phone" name="Phone" placeholder="123-456-7890" required>
+					<label class="w-100" for="TBphone">Phone Number:</label>
+					<input class="w-75" type="tel" id="TBphone" name="TBphone" placeholder="123-456-7890" required>
 				</fieldset>
 
 				@{
@@ -99,8 +99,8 @@
 					{
 						<fieldset class="payment-set">
 							<legend>Passengers</legend>
-							<label class="me-md-2" for="passNum">How many Passengers?</label>
-							<select class="w-25" id="passNum" name="passNum">
+							<label class="me-md-2" for="SelpassNum">How many Passengers?</label>
+							<select class="w-25" id="SelpassNum" name="SelpassNum">
 								<option value="" disabled selected>Select number of passengers</option>
 								<option value="4">4</option>
 								<option value="5">5</option>
@@ -115,11 +115,19 @@
 
 				<fieldset class="payment-set">
 					<legend>Order Summary</legend>
-					<p class="order-summary">You are purchasing a Fast Pass for <span class="fast-pass-type">@ViewBag.FastPassType</span> at a price of <span class="fast-pass-price">$@ViewBag.FastPassPrice</span>.</p>
+					<input type="hidden" id="basePrice" value="@ViewBag.FastPassPrice" />
+					<p class="order-summary">You are purchasing a <span class="fast-pass-type">@ViewBag.FastPassType</span> 
+						<br/>
+						Total: <span class="fast-pass-price">$@ViewBag.FastPassPrice</span>.</p>
 					<button type="submit" class="btnSubmit my-3">Buy</button>
+				</fieldset>
 				</div>
 			</form>
 		</div>
+		@section Scripts
+		{
+			<script src="~/js/payment.js"></script>
+		}
 	</body>
 
 </html>

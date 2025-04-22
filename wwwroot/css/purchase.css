@@ -12,8 +12,7 @@
 
 
 body {
-    background-color: #1a2c80;
-    background: linear-gradient(90deg, rgba(23,39,118,1) 0%, rgba(39,60,147,1) 48%, rgba(23,39,118,1) 100%);
+    background-color: white;
 }
 
 .purchase-body {
@@ -29,6 +28,7 @@ body {
     width: 40%;
     height:100%;
     filter: drop-shadow(0px 15px 20px black);
+    box-shadow: #1a2c80 10px 11px;
     border-style: solid;
     border-color: #1a2c80;
 }

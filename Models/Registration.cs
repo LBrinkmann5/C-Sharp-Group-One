@@ -14,6 +14,7 @@ namespace Southwest_Airlines.Models
         private string? _fname = "";
         private string? _lname = "";
 
+
         [Required(ErrorMessage =" * Please enter a username.")]
         public string? TBuser
         {

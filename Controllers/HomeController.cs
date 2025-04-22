@@ -97,6 +97,7 @@ namespace Southwest_Airlines.Controllers
         {
             if (ModelState.IsValid)
             {
+                Console.WriteLine(registrationInfo.TBlname);
                 bool isRegistered = await _DBUserListservice.RegisterUserAsync(registrationInfo);
                 if (isRegistered)
                 {
