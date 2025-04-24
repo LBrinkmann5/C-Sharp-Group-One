@@ -52,6 +52,11 @@ namespace Southwest_Airlines.Controllers
             return View();
         }
 
+        public IActionResult confirmRegistration()
+        {
+            return View();
+        }
+        //Cookie authenitcation and login.
         [HttpPost]
         public async Task<IActionResult> Login(Login loginInfo, string returnUrl)
         {
@@ -101,13 +106,13 @@ namespace Southwest_Airlines.Controllers
                 bool isRegistered = await _DBUserListservice.RegisterUserAsync(registrationInfo);
                 if (isRegistered)
                 {
-                    return RedirectToAction("info");
+                    return RedirectToAction("confirmRegistration");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Registration failed. Please try again.");
                 }
-                return RedirectToAction("info");
+                return RedirectToAction("confirmRegistration");
             }
             else
             {
