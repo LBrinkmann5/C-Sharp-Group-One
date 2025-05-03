@@ -2,9 +2,13 @@
 {
     public class FastPassPurchase
     {
-        string? PassType { get; set; }
-        int? PassGuest { get; set; } = 1;
-        int? PassPrice { get; set; } = 0;
+        public int PurchaseId { get; set; }
+        public double Price { get; set; }
+        public string? PaymentMethod { get; set; } = "Credit Card";
+        public DateTime PurchaseDate { get; set; } = DateTime.Now;
+        public int? UserId { get; set; }
+        
+
 
     }
 }

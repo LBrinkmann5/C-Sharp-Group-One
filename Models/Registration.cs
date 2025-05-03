@@ -16,7 +16,7 @@ namespace Southwest_Airlines.Models
 
 
         [Required(ErrorMessage =" * Please enter a username.")]
-        public string? TBuser
+        public string TBuser
         {
             get { return _user; }
             set { _user = value; }
@@ -60,68 +60,5 @@ namespace Southwest_Airlines.Models
             get { return _lname; }
             set { _lname = value; }
         }
-
-
-
-        //public bool validUser()
-        //{
-        //    string passwordvalid = @"^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()<>{}[\]-_=+,.?"":])(?!.*\s\s).{10,}$";
-        //    string emailvalid = @"^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$";
-        //    string phonevalid = @"^ [\d]{10,15}$";
-
-        //    bool isValid = true;
-        //    //Password validation
-        //    if (string.IsNullOrEmpty(_pass))
-        //    {
-        //        isValid = false;
-        //    }
-        //    else if (!Regex.IsMatch(_pass, passwordvalid))
-        //    {
-        //        isValid = false;
-        //    }
-        //    //Email validation
-        //    if (string.IsNullOrEmpty(_email))
-        //    {
-        //        isValid = false;
-                
-        //    }
-        //    else if(!Regex.IsMatch(_email, emailvalid))
-        //    {
-        //        isValid = false;
-        //    }
-        //    //Phone validation
-        //    if (string.IsNullOrEmpty(_phone))
-        //    {
-        //        isValid = false;
-        //    }
-        //    else if (!Regex.IsMatch(_phone, phonevalid))
-        //    {
-        //        isValid = false;
-        //    }
-        //    //Username validation
-        //    if (string.IsNullOrEmpty(_user))
-        //    {
-        //        isValid = false;
-        //    }
-        //    //Address validation
-        //    if (string.IsNullOrEmpty(_address))
-        //    {
-        //        isValid = false;
-        //    }
-
-        //    //First name validation
-        //    if (string.IsNullOrEmpty(_fname))
-        //    {
-        //        isValid = false;
-        //    }
-
-        //    //Last name validation
-        //    if (string.IsNullOrEmpty(_lname))
-        //    {
-        //        isValid = false;
-        //    }
-
-        //    return isValid;
-        //}
     }
 }

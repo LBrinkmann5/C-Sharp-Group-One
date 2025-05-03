@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Southwest_Airlines.Models.SharedViewModels;
 using Southwest_Airlines.Filters;
+using Humanizer;
 namespace Southwest_Airlines.Controllers
     //Code by Kenneth Gordon
 {
@@ -51,16 +52,26 @@ namespace Southwest_Airlines.Controllers
         [HttpGet]
         public IActionResult payment(int passType)
         {
-            ViewBag.PassChoice = new PassChoice { PassType = passType };
-            var loginModel = new Login();
-            var paymentModel = new Payment();
-
-            var viewModel = new PaymentPageModel
+            if (User.Identity.IsAuthenticated)
             {
-                
-                Payment = paymentModel
-            };
-            return View(viewModel);
+
+                ViewBag.PassChoice = new PassChoice { PassType = passType };
+                var loginModel = new Login();
+                var paymentModel = new Payment();
+
+                var viewModel = new PaymentPageModel
+                {
+
+                    Payment = paymentModel
+                };
+                return View(viewModel);
+            }
+            else
+            {
+                // If the user is not authenticated, redirect to the login page
+                ModelState.AddModelError("", "You must be logged in to make a purchase.");
+                return RedirectToAction("purchase");
+            }
         }
 
         public IActionResult confirmRegistration()
@@ -130,8 +141,9 @@ namespace Southwest_Airlines.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Registration failed. Please try again.");
+                    return View(registrationInfo);
                 }
-                return RedirectToAction("confirmRegistration");
+                
             }
             else
             {
@@ -164,6 +176,16 @@ namespace Southwest_Airlines.Controllers
                 // For example, save it to the database or perform validation
                 Console.WriteLine("Payment processed successfully.");
                 Console.WriteLine(paymentInfo.TBcardName);
+                
+                new FastPassPurchase
+                {
+                    PurchaseId = 0, // Assuming PurchaseId is auto-generated
+                    Price = paymentInfo.basePrice,
+                    PaymentMethod = "Credit Card",
+                    PurchaseDate = DateTime.Now,
+                };
+
+
                 return RedirectToAction("info");
             }
             else

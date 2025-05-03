@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
     const popoverTriggerEl = document.getElementById('loginStart');
     const popoverContent = document.getElementById('popoverContent').innerHTML;
+
 //Allows popover-container to appear
     const popover = new bootstrap.Popover(popoverTriggerEl, {
         content: popoverContent,
@@ -29,8 +30,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    
-    
+        // Attach event listener to buttons that require authentication
+    document.querySelectorAll(".requires-auth").forEach(button => {
+        button.addEventListener("click", function (event) {
+            if (!isAuthenticated) {
+                event.preventDefault(); // Prevent the default action
+                const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+                loginModal.show();
+            }
+        });
+    });
     
     
 });
