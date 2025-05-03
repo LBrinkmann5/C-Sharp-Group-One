@@ -7,6 +7,8 @@ using Southwest_Airlines.Services;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Southwest_Airlines.Models.SharedViewModels;
+using Southwest_Airlines.Filters;
 namespace Southwest_Airlines.Controllers
     //Code by Kenneth Gordon
 {
@@ -46,25 +48,42 @@ namespace Southwest_Airlines.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult payment(int passType)
         {
             ViewBag.PassChoice = new PassChoice { PassType = passType };
-            return View();
+            var loginModel = new Login();
+            var paymentModel = new Payment();
+
+            var viewModel = new PaymentPageModel
+            {
+                
+                Payment = paymentModel
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(Login loginInfo, string returnUrl)
+        public async Task<IActionResult> Login(BaseViewModel baseViewModel, string returnUrl)
         {
-
+            var loginInfo = baseViewModel.Login;
             if (ModelState.IsValid)
             {
                 bool isValidUser = await _DBUserListservice.VerifyLoginAsync(loginInfo.TBuser, loginInfo.TBpass);
+                
                 if (isValidUser)
                 {
+                    string firstName = await _DBUserListservice.GetUserFirstNameAsync(loginInfo.TBuser);
+                    //Set up the authentication cookie and sign in the user
+                    if (string.IsNullOrEmpty(firstName))
+                    {
+                        firstName = "Guest"; // Default value if first name is not found
+                    }
+
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, loginInfo.TBuser),
-                        //new Claim("FirstName", user.TBfname)
+                        new Claim("FirstName", firstName)
 
                     };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -128,6 +147,27 @@ namespace Southwest_Airlines.Controllers
         public async Task<IActionResult> purchased()
         {
             return RedirectToAction("info");
+        }
+        [HttpPost]
+        [ServiceFilter(typeof(SkipLoginValidationFilter))]
+        public async Task<IActionResult> payment(PaymentPageModel paymentPageModel)
+            {
+            if (ModelState.IsValid)
+            {
+                var paymentInfo = paymentPageModel.Payment;
+                // Process the payment information here
+                // For example, save it to the database or perform validation
+                Console.WriteLine("Payment processed successfully.");
+                Console.WriteLine(paymentInfo.TBcardName);
+                return RedirectToAction("info");
+            }
+            else
+            {
+
+                // If the model state is invalid, return the view with validation errors
+                ViewBag.PassChoice = new PassChoice { PassType = paymentPageModel.Payment.PassType };
+                return View(paymentPageModel);
+            }
         }
     }
 }

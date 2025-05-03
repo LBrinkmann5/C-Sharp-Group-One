@@ -10,7 +10,7 @@ $(() =>
         //}
     }
     //Prevents the user from entering anything other than numbers
-    $("#TBphone").on("keypress", (evt) => {
+    $("#TBphone").on("input", (evt) => {
         restrictCharacters(evt);
     });
 
@@ -23,17 +23,17 @@ $(() =>
         let sum = 0;
         let length = cardNumber.length;
 
-        if (!isValidLength(length))
-        {
-            console.log("Invalid length");
-            return false;
-        }
+        //if (!isValidLength(length))
+        //{
+        //    console.log("Invalid length");
+        //    return false;
+        //}
         
 
         let isSecond = false;
         for (let i = length - 1; i >= 0; i--)
         {
-            let d = cardNumber[i].charCodeAt() - '0';
+            let d = cardNumber[i] - '0';
             if (isSecond) {
                 d = d * 2;
                 if (d > 9) {
@@ -59,17 +59,48 @@ $(() =>
         else {
             $("#TBcardNumber").next().text("* Invalid card number.");
             console.log("Invalid card number entered: " + cardNumber);
-            $("#TBcardNumber").next().css("color", "red");
          }
     });
-    $("#TBsecurityCode").on("keypress", (evt) => {
+    $("#TBsecurityCode").on("input", (evt) => {
         restrictCharacters(evt);
+        if (evt.target.value.length > 4) {
+            evt.target.value = evt.target.value.slice(0, 4); // Limit to 4 digits
+        }
     });
+
+    $("#TBexpiryDate").on("keydown", (evt) =>
+    {
+        const input = evt.target;
+        const cursorPosition = input.selectionStart;
+
+        const key = evt.key;
+        if (key === "Backspace" && cursorPosition > 0 && input.value[cursorPosition - 1] === "/")
+        {
+            evt.preventDefault(); // Prevent the default backspace behavior
+            input.value = input.value.slice(0, cursorPosition - 1) + input.value.slice(cursorPosition); // Remove the slash
+            input.setSelectionRange(cursorPosition - 1, cursorPosition - 1); // Move the cursor back
+        }
+
+    });
+
+    $("#TBexpiryDate").on("input", (evt) => {
+        restrictCharacters(evt);
+        const input = evt.target;
+
+        if (input.value.length > 2 && input.value.indexOf("/") === -1) {
+            input.value = input.value.slice(0, 2) + "/" + input.value.slice(2); // Insert slash after MM
+        }
+
+        if (input.value.length > 5) {
+            input.value = input.value.slice(0, 5); // Limit to MM/YY format
+        }
+    })
 
     //To change to cost of the product
     const priceElement = $(".fast-pass-price");
     const basePrice = parseFloat($("#basePrice").val()) || 0;
-    $("#SelpassNum").on("change", function () {
+    $("#SelpassNum").on("change", function ()
+    {
         const selectedValue = parseInt($(this).val()) || 4;
         const totalPrice = basePrice + (selectedValue - 4) * 10;
         priceElement.text(`$${totalPrice.toFixed(2)}`);

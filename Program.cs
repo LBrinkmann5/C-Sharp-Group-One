@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Southwest_Airlines.Services;
+using Southwest_Airlines.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<UserListService>();
 
 builder.Services.AddScoped<DBUserList>();
+builder.Services.AddScoped<SkipLoginValidationFilter>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {

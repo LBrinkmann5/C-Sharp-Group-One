@@ -1,4 +1,4 @@
-﻿@model Login
+﻿@model BaseViewModel
 @{
 }
 
@@ -23,8 +23,8 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-link">
-                                @* <a class="headLinks" draggable="false" href="#">Welcome, @User.FindFirst("FirstName").Value</a> *@
-                                <a class="headLinks" draggable="false" href="#">Welcome, @User.Identity.Name </a>
+                                <a class="headLinks" draggable="false" href="#">Welcome, @User.FindFirst("FirstName").Value</a> 
+                                @*<a class="headLinks" draggable="false" href="#">Welcome, @User.Identity.Name </a>*@
                             </li>
 							<li class="nav-link">
                                 <form id="logoutForm" asp-action="Logout" method="post">
@@ -49,16 +49,16 @@
                                     <fieldset>
                                         <h1>Log in</h1>
                                         <input type="hidden" name="ReturnUrl" id="ReturnUrl" value="@Context.Request.Path"/>
-                                        <label class="labelStyle" id="Laccount" asp-for="TBuser">
+                                        <label class="labelStyle" id="Laccount" asp-for="Login.TBuser">
                                             ACCOUNT
                                             NUMBER/USERNAME
                                         </label>
                                         <br />
-                                        <input type="text" id="TBuser" asp-for="TBuser" />
+                                        <input type="text" id="TBuser" asp-for="Login.TBuser" />
                                         <br />
-                                        <label class="labelStyle" id="Lpass" asp-for="TBpass">PASSWORD</label>
+                                        <label class="labelStyle" id="Lpass" asp-for="Login.TBpass">PASSWORD</label>
                                         <br />
-                                        <input type="password" id="TBpass" asp-for="TBpass" />
+                                        <input type="password" id="TBpass" asp-for="Login.TBpass" />
                                         <a class="btn btnShow bi-eye-fill"
                                         id="btnShow"></a>
                                         <br />

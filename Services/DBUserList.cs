@@ -64,8 +64,8 @@ namespace Southwest_Airlines.Services
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                //try
-                //{
+                try
+                {
                     string query = @"INSERT INTO users (username, first_name, last_name, email, password_hash, home_address,  phone_number  ) VALUES (@username, @first_name, @last_name, @email, @password_hash, @home_address,  @phone_number)";
 
                     using (var command = new MySqlCommand(query, connection))
@@ -82,14 +82,36 @@ namespace Southwest_Airlines.Services
                         int rowsAffected = await command.ExecuteNonQueryAsync();
                         return rowsAffected > 0;
                     }
-                //}
-                /*catch (MySqlException ex)
+                }
+                catch (MySqlException ex)
                 {
                     // Log the exception or handle it as needed
                     Console.WriteLine($"Error during registration: {ex.Message}");
                     return false;
-                }*/
+                }
             }
         }
+        //To Get User First Name
+        public async Task<string?> GetUserFirstNameAsync(string username)
+        {
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT first_name FROM users WHERE LOWER(username) = LOWER(@username)";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return reader.GetString(0);
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }

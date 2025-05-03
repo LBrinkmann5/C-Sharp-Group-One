@@ -1,4 +1,5 @@
 ﻿
+@model PaymentPageModel
 @{
 	ViewData["Title"] = "Payment";
 	ViewBag.PageHead = "Enter Payment";
@@ -28,37 +29,37 @@
 }
 <body>
 	<div class="container">
-		<form asp-action="purchased" id="payment-form" name="payment-form" method="post">
+		<form asp-action="payment" id="payment-form" name="payment-form" method="post">
 			<div class="payment-back">
 				<fieldset class="payment-set">
 					<legend>Credit Card Information</legend>
-					<label class="me-md-2" for="TBcardNumber">Card Number:</label>
+					<label class="me-md-2" asp-for="Payment.TBcardNumber">Card Number:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-50" type="text" id="TBcardNumber" name="TBcardNumber" required><span></span>
+					<input class="w-50" type="text" asp-for="Payment.TBcardNumber" id="TBcardNumber" required><span class="text-danger" asp-validation-for="Payment.TBcardNumber"></span>
 
 					<div class="w-100 d-inline-block"></div>
 
 					<label class="me-md-2" for="TBsecurityCode">Security Code:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25 p-1" type="text" id="TBsecurityCode" name="TBsecurityCode" placeholder="123" required>
+					<input class="w-25 p-1" type="text" id="TBsecurityCode" asp-for="Payment.TBsecurityCode" placeholder="123" required><span class="text-danger" asp-validation-for="Payment.TBsecurityCode"></span>
 
 
 
 					<div class="w-100 d-block d-md-none"></div>
-					<label class="mx-md-3" for="TBexpiryDate">Expiry Date:</label>
+					<label class="mx-md-3" asp-for="Payment.TBexpiryDate">Expiry Date:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25  p-1" type="text" id="TBexpiryDate" name="expiryDate" placeholder="MM/YY" required>
+					<input class="w-25  p-1" type="text" id="TBexpiryDate" asp-for="Payment.TBexpiryDate" placeholder="MM/YY" required><span class="text-danger" asp-validation-for="Payment.TBexpiryDate"></span>
 
 					<div class="w-100 d-inline-block"></div>
 
-					<label for="TBcardName">Cardholder Name:</label>
-					<input class="w-75" type="text" id="TBcardName" name="TBcardName" required>
+					<label asp-for="Payment.TBcardName">Cardholder Name:</label>
+					<input class="w-75" type="text" id="TBcardName" asp-for="Payment.TBcardName" required><span class="text-danger" asp-validation-for="Payment.TBcardName"></span>
 				</fieldset>
 
 				<fieldset class="payment-set">
 					<legend>Billing Address</legend>
-					<label class="w-100" for="Selcountry">Country</label>
-					<select class="w-75 countrySelect" id="Selcountry" name="Selcountry" required>
+					<label class="w-100" asp-for="Payment.Selcountry">Country</label>
+					<select class="w-75 countrySelect" id="Selcountry" asp-for="Payment.Selcountry" required><span class="text-danger" asp-validation-for="Payment.Selcountry"></span>
 						<option value="" disabled selected>Select a country</option>
 						<option value="US">United States</option>
 						<option value="CA">Canada</option>
@@ -66,32 +67,32 @@
 						<!-- Add more countries as needed -->
 					</select>
 					<div class="w-100 d-inline-block"></div>
-					<label class="w-100" for="TBaddress">Address:</label>
-					<input class="w-75" type="text" id="TBaddress" name="TBaddress" required>
+					<label class="w-100" asp-for="Payment.TBaddress">Address:</label>
+					<input class="w-75" type="text" id="TBaddress" asp-for="Payment.TBaddress" required><span class="text-danger" asp-validation-for="Payment.TBaddress"></span>
 
 					<div class="w-100 d-inline-block"></div>
 
-					<label class="w-100" for="TBoptionalAddress">Apt/Suite: </label>
+					<label class="w-100" asp-for="Payment.TBoptionalAddress">Apt/Suite: </label>
 
-					<input class="w-75" type="text" id="TBoptionalAddress" name="TBoptionalAddress" placeholder="Optional">
+					<input class="w-75" type="text" id="TBoptionalAddress" asp-for="Payment.TBoptionalAddress" placeholder="Optional">
 					<div class="w-100 d-inline-block"></div>
 
-					<label class="me-md-2" for="TBcity">City:</label>
+					<label class="me-md-2" asp-for="Payment.TBcity">City:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25" type="text" id="TBcity" name="TBcity" required>
+					<input class="w-25" type="text" id="TBcity" asp-for="Payment.TBcity" required><span class="text-danger" asp-validation-for="Payment.TBcity"></span>
 					<div class="w-100 d-block d-md-none"></div>
-					<label class="mx-md-3" for="TBstate">State:</label>
+					<label class="mx-md-3" asp-for="Payment.TBstate">State:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25" type="text" id="TBstate" name="TBstate" required>
+					<input class="w-25" type="text" id="TBstate" asp-for="Payment.TBstate" required><span class="text-danger" asp-validation-for="Payment.TBstate"></span>
 					<div class="w-100 d-block d-md-none"></div>
-					<label class="mx-md-3" for="TBzip">Zip Code:</label>
+					<label class="mx-md-3" asp-for="Payment.TBzip">Zip Code:</label>
 					<div class="w-100 d-block d-md-none"></div>
-					<input class="w-25" type="text" id="TBzip" name="TBzip" required>
+					<input class="w-25" type="text" id="TBzip" asp-for="Payment.TBzip" required><span class="text-danger" asp-validation-for="Payment.TBzip"></span>
 
 					<div class="w-100 d-inline-block"></div>
 
-					<label class="w-100" for="TBphone">Phone Number:</label>
-					<input class="w-75" type="tel" id="TBphone" name="TBphone" placeholder="123-456-7890" required>
+					<label class="w-100" asp-for="Payment.TBphone">Phone Number:</label>
+					<input class="w-75" type="tel" id="TBphone" asp-for="Payment.TBphone" placeholder="123-456-7890" required><span class="text-danger" asp-validation-for="Payment.TBphone"></span>
 				</fieldset>
 
 				@{
@@ -99,23 +100,28 @@
 					{
 						<fieldset class="payment-set">
 							<legend>Passengers</legend>
-							<label class="me-md-2" for="SelpassNum">How many Passengers?</label>
-							<select class="w-25" id="SelpassNum" name="SelpassNum">
-								<option value="" disabled selected>Select number of passengers</option>
+							<label class="me-md-2" asp-for="Payment.SelpassNum">How many Passengers?</label>
+							<select class="w-25" id="SelpassNum" asp-for="Payment.SelpassNum" required>
+								<option value="0" disabled selected>Select number of passengers</option>
 								<option value="4">4</option>
 								<option value="5">5</option>
 								<option value="6">6</option>
 								<option value="7">7</option>
 								<option value="8">8</option>
 								<option value="9">9</option>
-							</select>
+							</select><span class="text-danger" asp-validation-for="Payment.SelpassNum"></span>
 						</fieldset>
+					}
+					else if (passType == 1 && passType != null)
+					{
+						<input type="hidden" asp-for="Payment.SelpassNum" value="1" />
 					}
 				}
 
 				<fieldset class="payment-set">
 					<legend>Order Summary</legend>
-					<input type="hidden" id="basePrice" value="@ViewBag.FastPassPrice" />
+					<input type="hidden" id="basePrice" asp-for="Payment.basePrice" value="@ViewBag.FastPassPrice" />
+					<input type="hidden" asp-for="Payment.PassType" value="@passType" />
 					<p class="order-summary">You are purchasing a <span class="fast-pass-type">@ViewBag.FastPassType</span> 
 						<br/>
 						Total: <span class="fast-pass-price">$@ViewBag.FastPassPrice</span>.</p>
