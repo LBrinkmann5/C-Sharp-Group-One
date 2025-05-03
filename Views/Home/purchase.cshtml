@@ -24,7 +24,8 @@
 				</ul>
 				<form method="get" asp-action="payment">
 					<input type="hidden" name="passType" value="1" />
-					<button class="btn btn-light btnPurchase">$24.99</button>
+					
+						<button class="btn btn-light btnPurchase requires-auth">$24.99</button>
 				</form>
 			</div>
 			<div class="w-100 d-block d-md-none"></div>
@@ -38,16 +39,17 @@
 					<li> Covers 4 guests and more(charge of $10 for additional members up to 9)</>
 					<li> Higher priority over individual passes.</li>
 				</ul>
-				<form method="get" asp-action="payment">
-					<input type="hidden" name="passType" value="2" />
-					<button class="btn btn-light btnPurchase">$74.99</button>
-				</form>
+					<form method="get" asp-action="payment">
+						<input type="hidden" name="passType" value="2" />
+						<button class="btn btn-light btnPurchase requires-auth">$74.99</button>
+					</form>
 			</div>
 			<div class="w-100 mb-5"></div>
 			<hr/>
 			<p class="disclaimer">Disclaimer: You may not use a Group Pass without at least 4 other guests present.</p>
 			</div>
 		</div>
+		
 	</body>
 </html>
 
