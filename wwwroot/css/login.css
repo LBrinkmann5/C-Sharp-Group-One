@@ -65,7 +65,7 @@ input:not([type=submit]):not([type=button]):not([type=checkbox]) {
     padding-top: 3px;
     text-align: right;
 }
-#loginStart{
+.loginStart{
     background-color: #ffbf27;
     font-family: Arial;
     font-weight: bold;
@@ -86,7 +86,7 @@ input:not([type=submit]):not([type=button]):not([type=checkbox]) {
     transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
     transition-behavior: normal, normal, normal, normal, normal, normal;
 }
-#loginStart:hover {
+.loginStart:hover {
     border-color: #111b40;
     box-shadow: none;
     transition: background-color .3s ease-out,background .3s ease-out,border .3s ease-out,box-shadow .3s ease-out,color .3s ease-out,opacity .3s ease-out;

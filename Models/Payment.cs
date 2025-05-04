@@ -3,7 +3,7 @@ namespace Southwest_Airlines.Models
 {
     public class Payment
     {
-        private double _basePrice = 0;
+        private double _price = 0;
         private int? _SelpassNum; // Default value for passenger number
 
 
@@ -48,14 +48,14 @@ namespace Southwest_Airlines.Models
             }
         }
         public int PassType { get; set; } = 0;
-        public double basePrice 
+        public double Price 
         { 
-            get => _basePrice; 
+            get => _price; 
             set 
             {
                 if (value >= 0)
                 {
-                    _basePrice = value;
+                    _price = value;
                 }
                 else
                 {

@@ -48,6 +48,13 @@ namespace Southwest_Airlines.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult confirmPurchase()
+        {
+            ViewBag.PassType = TempData["PassType"];
+            ViewBag.Price = TempData["Price"];
+            return View();
+        }
 
         [HttpGet]
         public IActionResult payment(int passType)
@@ -55,16 +62,16 @@ namespace Southwest_Airlines.Controllers
             if (User.Identity.IsAuthenticated)
             {
 
-                ViewBag.PassChoice = new PassChoice { PassType = passType };
-                var loginModel = new Login();
-                var paymentModel = new Payment();
+            ViewBag.PassChoice = new PassChoice { PassType = passType };
+            var loginModel = new Login();
+            var paymentModel = new Payment();
 
-                var viewModel = new PaymentPageModel
-                {
+            var viewModel = new PaymentPageModel
+            {
 
-                    Payment = paymentModel
-                };
-                return View(viewModel);
+                Payment = paymentModel
+            };
+            return View(viewModel);
             }
             else
             {
@@ -86,7 +93,7 @@ namespace Southwest_Airlines.Controllers
             if (ModelState.IsValid)
             {
                 bool isValidUser = await _DBUserListservice.VerifyLoginAsync(loginInfo.TBuser, loginInfo.TBpass);
-                
+                ViewBag.ErrorMessage = ""; // Reset error message
                 if (isValidUser)
                 {
                     string firstName = await _DBUserListservice.GetUserFirstNameAsync(loginInfo.TBuser);
@@ -108,6 +115,7 @@ namespace Southwest_Airlines.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Invalid username or password.");
+                    
                 }
             }
             else
@@ -117,6 +125,7 @@ namespace Southwest_Airlines.Controllers
                     foreach (var error in modelState.Errors)
                     {
                         System.Diagnostics.Debug.WriteLine(error.ErrorMessage);
+                        
                     }
                 }
             }
@@ -165,6 +174,7 @@ namespace Southwest_Airlines.Controllers
         {
             return RedirectToAction("info");
         }
+
         [HttpPost]
         [ServiceFilter(typeof(SkipLoginValidationFilter))]
         public async Task<IActionResult> payment(PaymentPageModel paymentPageModel)
@@ -173,19 +183,41 @@ namespace Southwest_Airlines.Controllers
             {
                 var paymentInfo = paymentPageModel.Payment;
                 // Process the payment information here
-                Console.WriteLine("Payment processed successfully.");
                 Console.WriteLine(paymentInfo.TBcardName);
+
                 
-                new FastPassPurchase
+                TempData["Price"] = paymentInfo.Price.ToString();
+                if (paymentInfo.PassType == 1)
                 {
-                    PurchaseId = 0, // Assuming PurchaseId is auto-generated
-                    Price = paymentInfo.basePrice,
-                    PaymentMethod = "Credit Card",
-                    PurchaseDate = DateTime.Now,
-                };
 
-
-                return RedirectToAction("info");
+                    TempData["PassType"] = "Individual Fast Pass";
+                    new FastPassPurchase
+                    {
+                        PurchaseId = 0,
+                        Price = paymentInfo.Price,
+                        PaymentMethod = "Credit Card",
+                        PurchaseDate = DateTime.Now,
+                    };
+                    //More processing of the payment information can be done here
+                }
+                else if (paymentInfo.PassType == 2)
+                {
+                    TempData["PassType"] = "Group Fast Pass";
+                    new FastPassPurchase
+                    {
+                        PurchaseId = 0,
+                        Price = paymentInfo.Price,
+                        PaymentMethod = "Credit Card",
+                        PurchaseDate = DateTime.Now,
+                    };
+                    //More processing of the payment information can be done here
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong. Please try again.");
+                    return(RedirectToAction("purchase"));
+                }
+                    return RedirectToAction("confirmPurchase");
             }
             else
             {

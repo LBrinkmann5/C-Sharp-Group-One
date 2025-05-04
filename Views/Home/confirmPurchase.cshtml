@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Purchase Confirmation";
+}
+
+<head>
+	<link rel="stylesheet" href="~/css/payment.css" />
+</head>
+
+<body>
+    <div class="container payment-set">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="title">Purchase Confirmed</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<p>Your purchase for a(an) <b>@ViewBag.PassType</b> of <b>$@ViewBag.Price</b> has been processed. Thank you for your purchase! </p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<a href="@Url.Action("info", "Home")" class="btn btn-primary">Go to Home</a>
+			</div>
+		</div>
+    </div>
+</body>
+

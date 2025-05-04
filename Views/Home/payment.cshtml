@@ -120,8 +120,9 @@
 
 				<fieldset class="payment-set">
 					<legend>Order Summary</legend>
-					<input type="hidden" id="basePrice" asp-for="Payment.basePrice" value="@ViewBag.FastPassPrice" />
+					<input type="hidden" id="basePrice" value="@ViewBag.FastPassPrice" />
 					<input type="hidden" asp-for="Payment.PassType" value="@passType" />
+					<input type="hidden" id="price" asp-for="Payment.Price" value="@ViewBag.FastPassPrice"/>
 					<p class="order-summary">You are purchasing a <span class="fast-pass-type">@ViewBag.FastPassType</span> 
 						<br/>
 						Total: <span class="fast-pass-price">$@ViewBag.FastPassPrice</span>.</p>

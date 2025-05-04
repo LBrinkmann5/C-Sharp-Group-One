@@ -1,7 +1,7 @@
 ﻿@model BaseViewModel
 @{
+    
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,11 +26,27 @@
                     Please log in to access this feature.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-bs-custom-class="logCustom" data-bs-toggle="popover" data-bs-placement="top" id="loginStart">Log In</button>
+                    @* <button type="button"  data-bs-custom-class="logCustom"  data-bs-toggle="popover" data-bs-placement="top" class="loginStart">Log In</button> *@
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Okay</button>             
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Invalid Login</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="headNavBack">
         <div class="container">
             <nav id="headerNav" class="navbar navbar-expand align-items-lg-center justify-content-lg-end">
@@ -55,13 +71,13 @@
                             <p id="pointBal">Log in to view points balance</p>
                         </li>
                         <li class="nav-link">
-                            <button type="button" data-bs-custom-class="logCustom" id="loginStart" data-bs-html="true"
+                            <button type="button" data-bs-custom-class="logCustom" class="loginStart" data-bs-html="true"
                             data-bs-toggle="popover" data-bs-placement="bottom">
                                 <span class="bi-person"></span> Log in
                             </button>
                         </li>
                         <!--Hidden div for popover-->
-                        <div id="popoverContent" style="display: none;">
+                        <div id="popoverContent" tabindex="-1" style="display: none;">
                             <form asp-action="Login" id="log_in_form" name="log_in_form" method="post">
                                 <fieldset>
                                     <h1>Log in</h1>
@@ -156,6 +172,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
+            if(@ViewBag.ErrorMessage != "")
+            {
+                const errorMessage = @ViewBag.ErrorMessage;
+            }
         const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
     </script>
     <script src="~/js/main.js"></script>
