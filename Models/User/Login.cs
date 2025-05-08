@@ -1,6 +1,5 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-namespace Southwest_Airlines.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace Southwest_Airlines.Models.User
 {
     public class Login
     {

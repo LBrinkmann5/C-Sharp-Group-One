@@ -57,10 +57,9 @@
                     {
                         <li class="nav-link">
                             <a class="headLinks" draggable="false" href="#">Welcome, @User.FindFirst("FirstName").Value</a> 
-                            @*<a class="headLinks" draggable="false" href="#">Welcome, @User.Identity.Name </a>*@
                         </li>
 						<li class="nav-link">
-                            <form id="logoutForm" asp-action="Logout" method="post">
+                            <form id="logoutForm" asp-controller="Home" asp-action="Logout" method="post">
 							<button type="submit" class="headLinks log-out-button">Log out</button>
                             </form>
                         </li>
@@ -96,8 +95,8 @@
                                     id="btnShow"></a>
                                     <br />
                                     <div class="logOptions">
-                                        <label id=Lremember for="CBremember">Remember me</label>
-                                        <input type="checkbox" id="CBremember" name="CBremember" />
+                                        <label id=Lemployee for="CBemployee">Employee account?</label>
+                                        <input type="checkbox" name="CBemployee" id="CBemployee"  />
                                         <div id="registration">
                                             Not a member?
                                             <a id="register" asp-action="registration">Enroll now!</a>
@@ -172,10 +171,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
-            if(@ViewBag.ErrorMessage != "")
-            {
-                const errorMessage = @ViewBag.ErrorMessage;
-            }
+            // if(@ViewBag.ErrorMessage != "")
+            // {
+            //     const errorMessage = @ViewBag.ErrorMessage;
+            // }
         const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
     </script>
     <script src="~/js/main.js"></script>

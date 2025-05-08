@@ -108,4 +108,6 @@ $(() =>
         priceElement.text(`$${totalPrice.toFixed(2)}`);
     });
 
+    
+
 });

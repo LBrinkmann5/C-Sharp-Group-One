@@ -1,4 +1,4 @@
-﻿namespace Southwest_Airlines.Models
+﻿namespace Southwest_Airlines.Models.User
 {
     public class FastPassPurchase
     {

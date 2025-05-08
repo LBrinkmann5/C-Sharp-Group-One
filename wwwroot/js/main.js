@@ -82,11 +82,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     //Login Error Modal
-    if (errorMessage != "")
-    {
-        const errorModal = new bootstrap.Modal(document.getElementById("errorModal"));
-        errorModal.show();
-    }
+    //if (errorMessage != "")
+    //{
+    //    const errorModal = new bootstrap.Modal(document.getElementById("errorModal"));
+    //    errorModal.show();
+    //}
     
     
 });

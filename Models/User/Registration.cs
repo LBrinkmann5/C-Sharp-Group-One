@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace Southwest_Airlines.Models
+namespace Southwest_Airlines.Models.User
 {
     public class Registration
     {

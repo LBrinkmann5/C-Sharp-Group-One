@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Southwest_Airlines.Models;
 using Southwest_Airlines.Services;
 using System.Threading.Tasks;
 using System.Security.Claims;
@@ -10,6 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Southwest_Airlines.Models.SharedViewModels;
 using Southwest_Airlines.Filters;
 using Humanizer;
+using Southwest_Airlines.Models.User;
 namespace Southwest_Airlines.Controllers
     //Code by Kenneth Gordon
 {
@@ -224,6 +224,8 @@ namespace Southwest_Airlines.Controllers
 
                 // If the model state is invalid, return the view with validation errors
                 ViewBag.PassChoice = new PassChoice { PassType = paymentPageModel.Payment.PassType };
+                
+
                 return View(paymentPageModel);
             }
         }

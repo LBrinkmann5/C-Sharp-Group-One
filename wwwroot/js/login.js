@@ -18,5 +18,18 @@ $(document).ready( () =>
 
     });
 
+    $(document).on("change", ".popover #CBemployee", function () {
+        //const form = document.getElementById("log_in_form");
+        const form = document.querySelector(".popover #log_in_form");
+        if (this.checked) {
+            form.action = "/Employee/Login";
+            console.log("Form action updated to: ", form.action);
+        }
+        else
+        {
+            form.action = "/Home/Login"
+            console.log("Form action updated to: ", form.action);
+        }
+    });
     
 });

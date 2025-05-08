@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Southwest_Airlines.Models;
+using Southwest_Airlines.Models.User;
 
 namespace Southwest_Airlines.Services
 {
@@ -39,23 +39,33 @@ namespace Southwest_Airlines.Services
         //To Login
         public async Task<bool> VerifyLoginAsync(string username, string password)
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            try
             {
-                await connection.OpenAsync();
-                string query = "SELECT password_hash FROM users WHERE LOWER(username) = LOWER(@username)";
-                using (var command = new MySqlCommand(query, connection))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    command.Parameters.AddWithValue("@username", username);
-                    using (var reader = await command.ExecuteReaderAsync())
-                    { if (await reader.ReadAsync())
+                    await connection.OpenAsync();
+                    string query = "SELECT password_hash FROM users WHERE LOWER(username) = LOWER(@username)";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", username);
+                        using (var reader = await command.ExecuteReaderAsync())
                         {
-                            string hashedPass = reader.GetString(0);
-                            return BCrypt.Net.BCrypt.Verify(password, hashedPass);
+                            if (await reader.ReadAsync())
+                            {
+                                string hashedPass = reader.GetString(0);
+                                return BCrypt.Net.BCrypt.Verify(password, hashedPass);
+                            }
                         }
                     }
                 }
+                return false;
             }
-            return false;
+            catch (MySqlException ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"Error during login verification: {ex.Message}");
+                return false;
+            }
 
         }
         //To Register
@@ -94,23 +104,32 @@ namespace Southwest_Airlines.Services
         //To Get User First Name
         public async Task<string?> GetUserFirstNameAsync(string username)
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            try
             {
-                await connection.OpenAsync();
-                string query = "SELECT first_name FROM users WHERE LOWER(username) = LOWER(@username)";
-                using (var command = new MySqlCommand(query, connection))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    command.Parameters.AddWithValue("@username", username);
-                    using (var reader = await command.ExecuteReaderAsync())
+                    await connection.OpenAsync();
+                    string query = "SELECT first_name FROM users WHERE LOWER(username) = LOWER(@username)";
+                    using (var command = new MySqlCommand(query, connection))
                     {
-                        if (await reader.ReadAsync())
+                        command.Parameters.AddWithValue("@username", username);
+                        using (var reader = await command.ExecuteReaderAsync())
                         {
-                            return reader.GetString(0);
+                            if (await reader.ReadAsync())
+                            {
+                                return reader.GetString(0);
+                            }
                         }
                     }
                 }
+                return null;
             }
-            return null;
+            catch (MySqlException ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"Error during user retrieval: {ex.Message}");
+                return null;
+            }
         }
 
     }

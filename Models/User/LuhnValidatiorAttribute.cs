@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace Southwest_Airlines.Models
+namespace Southwest_Airlines.Models.User
 {
     public class LuhnValidatiorAttribute : ValidationAttribute
     {
@@ -47,7 +47,7 @@ namespace Southwest_Airlines.Models
                 isSecond = !isSecond;
             }
 
-            return (sum % 10 == 0);
+            return sum % 10 == 0;
         }
     }
 }

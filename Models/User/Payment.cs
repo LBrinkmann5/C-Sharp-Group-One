@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace Southwest_Airlines.Models
+namespace Southwest_Airlines.Models.User
 {
     public class Payment
     {
@@ -10,13 +10,15 @@ namespace Southwest_Airlines.Models
         [Required(ErrorMessage = "* Please enter a valid card number.")]
         [LuhnValidatior]
         public string TBcardNumber { get; set; } = "";
+
         [Required(ErrorMessage = "* Please enter a valid security code.")]
         [RegularExpression(@"^\d{3,4}$", ErrorMessage = "* Security code must be 3 or 4 digits.")]
         public string TBsecurityCode { get; set; } = "";
+
         [Required(ErrorMessage = "* Please enter a valid expiration date.")]
         [RegularExpression(@"^(0[1-9]|1[0-2])\/?([0-9]{2})$", ErrorMessage = "* Expiration date must be in MM/YY format.")]
-
         public string TBexpiryDate { get; set; } = "";
+
         [Required(ErrorMessage = "* Please enter the cardholder's name.")]
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "* Cardholder's name must contain only letters and spaces.")]
         public string TBcardName { get; set; } = "";
@@ -35,7 +37,7 @@ namespace Southwest_Airlines.Models
         [Required(ErrorMessage = "* Please enter a valid ZIP code.")]
         [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "* ZIP code must be in the format 12345 or 12345-6789.")]
         public string TBzip { get; set; } = "";
-        [Required(ErrorMessage = " * Please enter a phone number.")]
+        [Required(ErrorMessage = "* Please enter a phone number.")]
         [RegularExpression(@"^[\d]{10,15}$", ErrorMessage = " * Please enter a valid phone number")]
         public string TBphone { get; set; } = "";
         [Required(ErrorMessage = "* Please select a passenger number.")]
