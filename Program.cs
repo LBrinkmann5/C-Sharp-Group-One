@@ -7,16 +7,27 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<DBUserList>();
+builder.Services.AddScoped<DBCustomer>();
 builder.Services.AddScoped<DBEmployee>();
 builder.Services.AddScoped<SkipLoginValidationFilter>();
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(options =>
+//    {
+//        options.LoginPath = "/Home/Login";
+//        options.LogoutPath = "/Home/Logout";
+//        options.AccessDeniedPath = "/Home/AccessDenied";
+//    });
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Home/Login";
-        options.LogoutPath = "/Home/Logout";
-        options.AccessDeniedPath = "/Home/AccessDenied";
+        options.Cookie.HttpOnly = true; // Ensure the cookie is not accessible via JavaScript
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Optional: Set a timeout for the session
+        options.SlidingExpiration = true; // Optional: Extend the session on activity
+        options.Cookie.IsEssential = true; // Ensure the cookie is essential for GDPR compliance
+        options.Cookie.SameSite = SameSiteMode.Strict; // Optional: Restrict cross-site usage
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Use secure cookies (HTTPS only)
     });
+
 
 var app = builder.Build();
 

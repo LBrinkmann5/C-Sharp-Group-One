@@ -16,20 +16,21 @@ namespace Southwest_Airlines.Controllers
     public class HomeController : Controller
     {
 
-        private readonly DBUserList _DBUserListservice;
+        private readonly DBCustomer _DBCustomerService;
         //public HomeController(UserListService userListService)
         //{
         //    _userListService = userListService;
 
         //}
 
-        public HomeController(DBUserList DBUserListservice)
+        public HomeController(DBCustomer DBCustomerService)
         {
-            _DBUserListservice = DBUserListservice;
+            _DBCustomerService = DBCustomerService;
+            
         }
         //public async Task<IActionResult> TestConsoleOutput()
         //{
-        //    await _DBUserListservice.GetDataAsync();
+        //    await _DBCustomerService.GetDataAsync();
         //    return Content("Check console for output.");
         //}
 
@@ -53,6 +54,11 @@ namespace Southwest_Airlines.Controllers
         {
             ViewBag.PassType = TempData["PassType"];
             ViewBag.Price = TempData["Price"];
+            return View();
+        }
+
+        public IActionResult flights()
+        {
             return View();
         }
 
@@ -92,11 +98,11 @@ namespace Southwest_Airlines.Controllers
             var loginInfo = baseViewModel.Login;
             if (ModelState.IsValid)
             {
-                bool isValidUser = await _DBUserListservice.VerifyLoginAsync(loginInfo.TBuser, loginInfo.TBpass);
+                bool isValidUser = await _DBCustomerService.VerifyLoginAsync(loginInfo.TBuser, loginInfo.TBpass);
                 ViewBag.ErrorMessage = ""; // Reset error message
                 if (isValidUser)
                 {
-                    string firstName = await _DBUserListservice.GetUserFirstNameAsync(loginInfo.TBuser);
+                    string firstName = await _DBCustomerService.GetUserFirstNameAsync(loginInfo.TBuser);
                     //Set up the authentication cookie and sign in the user
                     if (string.IsNullOrEmpty(firstName))
                     {
@@ -110,7 +116,14 @@ namespace Southwest_Airlines.Controllers
 
                     };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30)
+                    };
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authProperties);
                 }
                 else
                 {
@@ -142,7 +155,7 @@ namespace Southwest_Airlines.Controllers
             if (ModelState.IsValid)
             {
                 Console.WriteLine(registrationInfo.TBlname);
-                bool isRegistered = await _DBUserListservice.RegisterUserAsync(registrationInfo);
+                bool isRegistered = await _DBCustomerService.RegisterUserAsync(registrationInfo);
                 if (isRegistered)
                 {
                     return RedirectToAction("confirmRegistration");

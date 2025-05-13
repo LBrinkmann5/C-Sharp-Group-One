@@ -6,10 +6,10 @@ using Southwest_Airlines.Models.User;
 
 namespace Southwest_Airlines.Services
 {
-    public class DBUserList
+    public class DBCustomer
     {
         private readonly string _connectionString;
-        public DBUserList(IConfiguration configuration)
+        public DBCustomer(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }

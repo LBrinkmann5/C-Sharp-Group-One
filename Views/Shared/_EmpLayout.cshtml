@@ -17,7 +17,11 @@
                 </div>
                 <div class="col-md-2 mt-2">
                     <h1 class="mainHead">Employee Portal</h1>
-                </div>               
+                </div> 
+                <div class="col-md-2 mt-2">
+				<h1 class="mainHead">Welcome, @User.Identity.Name!</h1>
+				<a asp-action="Logout" class="btn btn-danger" id="logoutBtn" style="margin-top: 1.5rem; margin-left: 2rem;">Logout</a>
+                </div>
             </div>
             <nav class="navbar navbar-expand-md">
                 <ul class="ps-3 navbar-nav">
@@ -37,6 +41,7 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
         <script src="~/js/main.js"></script>
+        <script src="~/js/employee.js"></script>
         @RenderSection("Scripts", required: false)
     </body>
 </html>
