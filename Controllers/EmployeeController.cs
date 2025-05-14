@@ -66,6 +66,12 @@ namespace Southwest_Airlines.Controllers
             return RedirectToAction("info", "Home");
         }
 
+        public async Task<IActionResult> fastPassLookup()
+        {
+            //Work in Progress
+            return View();
+        }
+
         public async Task<IActionResult> LogoutOnClose()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

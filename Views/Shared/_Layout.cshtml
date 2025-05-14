@@ -59,7 +59,7 @@
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
                         <li class="nav-link">
-                            <a class="headLinks" draggable="false" href="#">Welcome, @User.FindFirst("FirstName").Value</a> 
+                            <a class="headLinks" draggable="false" asp-action="customerDash">Welcome, @User.FindFirst("FirstName").Value</a> 
                         </li>
 						<li class="nav-link">
                             <form id="logoutForm" asp-controller="Home" asp-action="Logout" method="post">
@@ -164,6 +164,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item"><span class="subNavLink"><a asp-action="info" class="nav-link">About</a></span></li>
                     <li class="nav-item"><span class="subNavLink"><a asp-action="purchase" class="nav-link">Purchase</a></span></li>
+					<li class="nav-item"><span class="subNavLink requires-auth"><a asp-action="airports" class="nav-link">Booking</a></span></li>
                 </ul>
             </nav>
         </div>

@@ -1,27 +1,28 @@
-﻿@{
+﻿
+@{
 	ViewData["Title"] = "Airports - Southwest Airlines";
 }
+@model BookingPageModel;
 <!DOCTYPE html>
 
 <html>
 <body>
 	<div class="container">
-	<form asp-action="#" method="post">
+	<form asp-action="flights" method="post">
 		<label class="text-secondary">Departure: </label>
-		<select id="selDepart">
-			<option selected disabled>Select Airport</option>
-			<!--Populate with database-->
-
-		</select>
+			<input id="airport-search-depart" type="text" placeholder="Enter City or State" />
+			<div id="airport-suggestions-depart" class="list-group" style="position:absolute; z-index:1000; display:none;"></div>
+			<p id="airport-depart-name"></p>
+			<input type="hidden"  asp-for="Booking.DepartCode" id="airport-depart-code" />
 		<p>TO</p>
 		<label class="text-secondary">Arrival: </label>
-		<select id="selArrival">
-			<option selected disabled>Select Airport</option>
-			<!--Populate with Database-->
-		</select>
+		<input id="airport-search-arrival" type="text" placeholder="Enter City or State">
+			<div id="airport-suggestions-arrival" class="list-group" style="position:absolute; z-index:1000; display:none;"></div>
+			<p id="airport-arrival-name"></p>
+			<input type="hidden" asp-for="Booking.ArriveCode" id="airport-arrival-code" />
 		<br/>
 		<label class="text-secondary">Departure Date: </label>
-		<input id="departureDate" type="date"/>
+		<input id="departureDate" type="date" asp-for="Booking.DepartDate"/>
 		
 		<label class="text-secondary">Return Date: </label>
 		<input type="date" id="returnDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
@@ -52,21 +53,23 @@
 				flatpickr("#departureDate", {
 					defaultDate: defaultDate,
 					minDate: "today",
+					maxDate: "2025-05-21",
 					disable:unavailableDates,
-					dateFormat: "m-d"
+					dateFormat: "Y-m-d"
 				});
 
 				flatpickr("#returnDate", 
 				{
 					defaultDate: returnDate,
 					minDate: "today",
+					maxDate: "2025-05-21",
 					disable:unavailableDates,
 					dateFormat: "m-d"
 				});
 			</script>
 		<label class="text-secondary">Passengers: </label>
 		<select id="selPassengerNum">
-			<option selected value="1">1</option>
+			<option required selected value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
 			<option value="4">4</option>
@@ -76,7 +79,12 @@
 			<option value="8">8</option>
 			<option value="9">9</option>
 		</select>
+		<button class="btnSubmit" id="btnSubmit2" type="submit"></button>
 	</form>
 	</div>
+	@section Scripts
+	{
+		<script src="~/js/searchSuggestions.js"></script>
+	}
 </body>
 </html>

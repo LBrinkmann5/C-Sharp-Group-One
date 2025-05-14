@@ -10,6 +10,8 @@ using Southwest_Airlines.Models.SharedViewModels;
 using Southwest_Airlines.Filters;
 using Humanizer;
 using Southwest_Airlines.Models.User;
+using Org.BouncyCastle.Bcpg;
+using static Southwest_Airlines.Models.User.Airports;
 namespace Southwest_Airlines.Controllers
     //Code by Kenneth Gordon
 {
@@ -60,6 +62,34 @@ namespace Southwest_Airlines.Controllers
         public IActionResult flights()
         {
             return View();
+        }
+
+        public IActionResult customerDash()
+        {
+            return View();
+        }
+
+        public IActionResult airports()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchAirports(string term)
+        {
+            var airports = await _DBCustomerService.SearchAirportsAsync(term);
+            return Json(airports);
+        }
+
+
+
+        public async Task<IActionResult> purchasedPasses()
+        {
+            
+            var username = User.Identity.Name;
+            int userID = await _DBCustomerService.GetUserIdAsync(username);
+            List<FastPassPurchase> passes = await _DBCustomerService.GetUserPurchasesAsync(userID);
+            return View(passes);
         }
 
         [HttpGet]
@@ -196,18 +226,22 @@ namespace Southwest_Airlines.Controllers
             {
                 var paymentInfo = paymentPageModel.Payment;
                 // Process the payment information here
-                Console.WriteLine(paymentInfo.TBcardName);
+                var userName = User.Identity.Name;
+                var userID = await _DBCustomerService.GetUserIdAsync(userName);
+                var purchased = new FastPassPurchase();
 
-                
                 TempData["Price"] = paymentInfo.Price.ToString();
                 if (paymentInfo.PassType == 1)
                 {
 
                     TempData["PassType"] = "Individual Fast Pass";
-                    new FastPassPurchase
+                    purchased = new FastPassPurchase
                     {
                         PurchaseId = 0,
+                        UserId  = userID,
                         Price = paymentInfo.Price,
+                        PassType = paymentInfo.PassType,
+                        Passengers = paymentInfo.SelpassNum,
                         PaymentMethod = "Credit Card",
                         PurchaseDate = DateTime.Now,
                     };
@@ -216,10 +250,13 @@ namespace Southwest_Airlines.Controllers
                 else if (paymentInfo.PassType == 2)
                 {
                     TempData["PassType"] = "Group Fast Pass";
-                    new FastPassPurchase
+                    purchased = new FastPassPurchase
                     {
                         PurchaseId = 0,
+                        UserId = userID,
                         Price = paymentInfo.Price,
+                        PassType = paymentInfo.PassType,
+                        Passengers = paymentInfo.SelpassNum,
                         PaymentMethod = "Credit Card",
                         PurchaseDate = DateTime.Now,
                     };
@@ -230,7 +267,9 @@ namespace Southwest_Airlines.Controllers
                     ModelState.AddModelError("", "Something went wrong. Please try again.");
                     return(RedirectToAction("purchase"));
                 }
-                    return RedirectToAction("confirmPurchase");
+                // Save the purchase to the database
+                await _DBCustomerService.PurchasePassAsync(purchased);
+                return RedirectToAction("confirmPurchase");
             }
             else
             {
@@ -240,6 +279,38 @@ namespace Southwest_Airlines.Controllers
                 
 
                 return View(paymentPageModel);
+            }
+
+        }
+        [HttpPost]
+        [ServiceFilter(typeof(SkipLoginValidationFilter))]
+        public async Task<IActionResult> flights(BookingPageModel bookingPageModel)
+        {
+            foreach (var key in ModelState.Keys.Where(k => k.StartsWith("Login") || k.Contains(".Login") || k.StartsWith("Login.") || k.EndsWith(".Login")).ToList())
+            {
+                ModelState.Remove(key);
+            }
+            if (ModelState.IsValid)
+            {
+                var bookingInfo = bookingPageModel.Booking;
+
+                List<Flights> curFlights = await _DBCustomerService.GetFlightsAsync(bookingInfo.DepartDate, bookingInfo.DepartCode, bookingInfo.ArriveCode);
+                if (curFlights == null)
+                {
+                    ModelState.AddModelError("", "No flights found for the selected date and route.");
+                    return View("airports",bookingPageModel);
+                }
+                else
+                {  
+                    bookingPageModel.FlightsList = curFlights;
+                    return View(bookingPageModel);
+                }
+            }
+            else
+            {
+                // If the model state is invalid, return the view with validation errors
+                ModelState.AddModelError("", "Please fill in all required fields.");
+                return View("airports", bookingPageModel);
             }
         }
     }

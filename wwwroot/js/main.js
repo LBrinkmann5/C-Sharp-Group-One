@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-    //document.addEventListener('click', function(event) 
+    //document.addEventListener('click', function(event)
     //{
     //const isClickInside = popoverTriggerEl.contains(event.target) || document.querySelector('.popover')?.contains(event.target);
-    //if (!isClickInside) 
+    //if (!isClickInside)
     //    {
     //        popover.hide();
     //    }

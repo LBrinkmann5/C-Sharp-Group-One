@@ -1,4 +1,4 @@
-﻿
+﻿@model BookingPageModel
 @{
     ViewData["Title"] = "Southwest Airlines - Flights";
 }
@@ -7,9 +7,27 @@
 <html>
     <body>
         <div class="container">
-            <ul class="list-group">
-                <!--Populate with Flights-->
-            </ul>
+            <table class="table table-borderless table-striped">
+            <!--Populate with Flights-->
+                <thead>
+                    <th>Flight Number</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                    <th></th>
+                </thead>
+            <tbody>
+                <tr>
+					@foreach (var flight in Model.FlightsList)
+					{
+						<td>@flight.FlightNumber</td>
+						<td>@flight.DepartureTime.ToString("HH:mm")</td>
+						<td>@flight.ArrivalTime.ToString("HH:mm")</td>
+						<td><a href="@Url.Action("BookFlight", "Booking", new { flightId = flight.FlightId })" class="btn btn-primary">Book Flight</a></td>
+					}
+
+                </tr>
+            </tbody>
+        </table>
         </div>
     </body>
 </html>

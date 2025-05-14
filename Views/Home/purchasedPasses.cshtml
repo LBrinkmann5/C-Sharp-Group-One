@@ -1,0 +1,44 @@
+﻿
+@model List<FastPassPurchase>
+@{
+	Layout = "~/Views/Shared/_CustomerLayout.cshtml"; 
+	ViewData["Title"] = "Fast Passes";
+	ViewData["PageHead"] = "Purchased Fast Passes";
+}
+
+<body>
+	<table class="table table-borderless table-striped" >
+		<thead>
+			<th>ID</th>
+			<th>Pass Type</th>
+			<th>Price</th>
+			<th>Passengers</th>
+			<th>Purchase Date</th>
+		</thead>
+		<tbody>
+			@foreach (var pass in Model)
+			{
+				<tr>
+					<td>@pass.PurchaseId</td>
+					@if (pass.PassType == 1)
+					{
+						ViewBag.Type = "Individual Fast Pass";
+					}
+					else if (pass.PassType == 2)
+					{
+						ViewBag.Type = "Group Fast Pass";
+					}
+					else
+					{
+						ViewBag.Type = "Unknown Pass Type";
+					}
+					<td>@ViewBag.Type</td>
+					<td>@pass.Price.ToString("C")</td>
+					<td>@pass.Passengers</td>
+					<td>@pass.PurchaseDate.ToString("MM/dd/yyyy")</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</body>
+

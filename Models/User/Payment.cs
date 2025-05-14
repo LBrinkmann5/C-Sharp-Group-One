@@ -4,7 +4,7 @@ namespace Southwest_Airlines.Models.User
     public class Payment
     {
         private double _price = 0;
-        private int? _SelpassNum; // Default value for passenger number
+        private int _SelpassNum = 1; // Default value for passenger number
 
 
         [Required(ErrorMessage = "* Please enter a valid card number.")]
@@ -42,7 +42,7 @@ namespace Southwest_Airlines.Models.User
         public string TBphone { get; set; } = "";
         [Required(ErrorMessage = "* Please select a passenger number.")]
         [Range (1, 9, ErrorMessage = "* Please select a passenger number.")]
-        public int? SelpassNum 
+        public int SelpassNum 
         { get => _SelpassNum;
             set 
             {

@@ -4,5 +4,29 @@
     Layout = "~/Views/Shared/_EmpLayout.cshtml";
 }
 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<title>Fast Pass Lookup</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Fast Pass Lookup</h1>
+			<form asp-action="fastPassLookup" method="post">
+				<label for="passId">Enter Fast Pass ID:</label>
+				<input type="text" id="passId" name="passId" required />
+				<button type="submit">Lookup</button>
+			</form>
+			@if (Model != null)
+			{
+				<h2>Fast Pass Details</h2>
+				<p>Passenger Name: @Model.PassengerName</p>
+				<p>Flight Number: @Model.FlightNumber</p>
+				<p>Status: @Model.Status</p>
+			}
+		</div>
+	</body>
+</html>
 
 
