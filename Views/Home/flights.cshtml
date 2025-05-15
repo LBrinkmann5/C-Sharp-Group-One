@@ -24,15 +24,23 @@
                 <th></th>
             </thead>
             <tbody>
-                
-                    @foreach (var flight in Model.FlightsList)
-                    {
+
+                @foreach (var flight in Model.FlightsList)
+                {
                     <tr>
                         <td>@flight.FlightNumber</td>
                         <td>@flight.DepartureTime.ToString("HH:mm")</td>
                         <td>@flight.ArrivalTime.ToString("HH:mm")</td>
                         <td>@flight.Price.ToString("C")</td>
-                        <td>@flight.FastPassAvailable</td>
+                        @if(flight.FastPassAvailable)
+                            {
+							<td>Available</td>
+                            }
+                            else
+                            {
+							<td>Not Available</td>
+						}
+                        
                         <td>@if(flight.FastPassAvailable == false)
                             {
                                 <input  type="checkbox"  disabled />
