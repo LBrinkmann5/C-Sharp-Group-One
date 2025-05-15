@@ -9,6 +9,8 @@
         public string Status { get; set; } = "";
         public string DepartureAirportCode { get; set; }
         public string ArrivalAirportCode { get; set; }
+        public bool FastPassAvailable { get; set; } = false;
+        public double Price { get; set; } = 0.00;
 
     }
 }

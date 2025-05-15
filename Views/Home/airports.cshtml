@@ -10,13 +10,13 @@
 	<div class="container">
 	<form asp-action="flights" method="post">
 		<label class="text-secondary">Departure: </label>
-			<input id="airport-search-depart" type="text" placeholder="Enter City or State" />
+			<input id="airport-search-depart" type="text" placeholder="Type to Search..." />
 			<div id="airport-suggestions-depart" class="list-group" style="position:absolute; z-index:1000; display:none;"></div>
 			<p id="airport-depart-name"></p>
 			<input type="hidden"  asp-for="Booking.DepartCode" id="airport-depart-code" />
 		<p>TO</p>
 		<label class="text-secondary">Arrival: </label>
-		<input id="airport-search-arrival" type="text" placeholder="Enter City or State">
+		<input id="airport-search-arrival" type="text" placeholder="Type to Search...">
 			<div id="airport-suggestions-arrival" class="list-group" style="position:absolute; z-index:1000; display:none;"></div>
 			<p id="airport-arrival-name"></p>
 			<input type="hidden" asp-for="Booking.ArriveCode" id="airport-arrival-code" />
@@ -24,12 +24,11 @@
 		<label class="text-secondary">Departure Date: </label>
 		<input id="departureDate" type="date" asp-for="Booking.DepartDate"/>
 		
-		<label class="text-secondary">Return Date: </label>
-		<input type="date" id="returnDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+		@* <label class="text-secondary">Return Date: </label>
+		<input type="date" id="returnDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" /> *@
 			<script>
-				const unavailableDates = ["2025-05-15", "2025-05-18"];
+				
 				const todayDate = new Date();
-				//const defaultDate = todayDate.setDate(todayDate.getDate() + 1);
 				let defaultDate = new Date(todayDate);
 				defaultDate.setDate(defaultDate.getDate() + 1);
 
@@ -38,24 +37,23 @@
 						return date.toISOString().slice(0,10);
 					}
 
-				while (unavailableDates.includes(formatDate(defaultDate))) 
-					{
-						defaultDate.setDate(defaultDate.getDate() + 1);
-					}
-				let returnDate = new Date(defaultDate);
-				returnDate.setDate(returnDate.getDate() + 1);
-				while (unavailableDates.includes(formatDate(returnDate)))
-					{
-						returnDate.setDate(returnDate.getDate() + 1);
-					}
+				// while (unavailableDates.includes(formatDate(defaultDate))) 
+				// 	{
+				// 		defaultDate.setDate(defaultDate.getDate() + 1);
+				// 	}
+				// let returnDate = new Date(defaultDate);
+				// returnDate.setDate(returnDate.getDate() + 1);
+				// while (unavailableDates.includes(formatDate(returnDate)))
+				// 	{
+				// 		returnDate.setDate(returnDate.getDate() + 1);
+				// 	}
 
 					//todayDate.setDate(todayDate.getDate() + 1);
 				flatpickr("#departureDate", {
 					defaultDate: defaultDate,
 					minDate: "today",
 					maxDate: "2025-05-21",
-					disable:unavailableDates,
-					dateFormat: "Y-m-d"
+					dateFormat: "m-d"
 				});
 
 				flatpickr("#returnDate", 
@@ -63,12 +61,11 @@
 					defaultDate: returnDate,
 					minDate: "today",
 					maxDate: "2025-05-21",
-					disable:unavailableDates,
 					dateFormat: "m-d"
 				});
 			</script>
 		<label class="text-secondary">Passengers: </label>
-		<select id="selPassengerNum">
+		<select id="selPassengerNum" asp-for="Booking.PassengerCount">
 			<option required selected value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
@@ -79,12 +76,13 @@
 			<option value="8">8</option>
 			<option value="9">9</option>
 		</select>
-		<button class="btnSubmit" id="btnSubmit2" type="submit"></button>
+		<br/>
+		<button class="btnSubmit" id="btnSubmit" type="submit">Search </button>
 	</form>
 	</div>
 	@section Scripts
 	{
-		<script src="~/js/searchSuggestions.js"></script>
+		<script src="~/js/searchSuggestions.js" defer></script>
 	}
 </body>
 </html>

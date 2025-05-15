@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Southwest_Airlines.Models.User;
 using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Southwest_Airlines.Services
 {
@@ -313,7 +314,7 @@ namespace Southwest_Airlines.Services
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    string query = @"SELECT flight_id, flight_number, departure_time, arrival_time, status
+                    string query = @"SELECT flight_id, flight_number, departure_time, arrival_time, status, price
                     FROM flightschedules
                     WHERE departure_airport_id = @departId
                     AND arrival_airport_id = @arriveId
@@ -335,6 +336,7 @@ namespace Southwest_Airlines.Services
                                     DepartureTime = reader.GetDateTime(2),
                                     ArrivalTime = reader.GetDateTime(3),
                                     Status = reader.GetString(4),
+                                    Price = reader.GetDouble(5),
                                     DepartureAirportCode = departCode,
                                     ArrivalAirportCode = arriveCode
 
@@ -350,6 +352,142 @@ namespace Southwest_Airlines.Services
                 Console.WriteLine($"Error during flight retrieval: {ex.Message}");
             }
             return flights;
+        }
+        //Get Pass Availability
+        public async Task<List<Flights>> GetPassAvailabilityAsync(List<Flights> flights)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    //int airportId = await GetAirportIdAsync(departCode);
+                    int flightId = flights[0].FlightId;
+                    await connection.OpenAsync();
+                    string query = "SELECT capacity FROM airportavailability aa " +
+                        "JOIN flightschedules fs " +
+                        "ON aa.airport_id = fs.departure_airport_id " +
+                        "AND aa.availability_date = DATE(fs.departure_time)" +
+                        "AND aa.availability_time = DATE_FORMAT(fs.departure_time, '%H:00:00')" +
+                        "WHERE fs.flight_id = @flightId";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        //command.Parameters.AddWithValue("@airportId", airportId);
+                        command.Parameters.AddWithValue("@flightId", flightId);
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                               if (reader.GetInt32(0) >= 20)
+                                {
+                                    flights[0].FastPassAvailable = false;
+                                }
+                                else
+                                {
+                                    flights[0].FastPassAvailable = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+            catch (MySqlException ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"Error during pass availability check: {ex.Message}");
+            }
+            return flights; // Flight not found or no passes available
+        }
+
+        //Get Airport Name
+        public async Task<string?> GetAirportNameAsync(int airportId)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    string query = "SELECT airport_name FROM airports WHERE  airport_id = @airportId ";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@airportId", airportId);
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return reader.GetString(0);
+                            }
+                        }
+                    }
+                }
+                return null; // Airport not found
+            }
+            catch (MySqlException ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"Error during airport name retrieval: {ex.Message}");
+                return null;
+            }
+        }
+
+
+        //Use Pass
+        public async Task<bool> UsePassAsync(int flightId, int purchaseId)
+        {
+            //Get Departure Airport ID
+            int airportId = 0;
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    string query = "SELECT departure_airport_id FROM flightschedules WHERE flight_id = @flightId";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@flightId", flightId);
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                airportId = reader.GetInt32(0);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"Error during airport ID retrieval: {ex.Message}");
+                return false;
+            }
+            //Get Departure Airport Name
+            string? airportName = await GetAirportNameAsync(airportId);
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    string query = "INSERT INTO fastpassusagelogs(purchase_id, usage_date, location, flight_id) VALUES (@purchaseId, @usageDate, @location, @flightId";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@flightId", flightId);
+                        command.Parameters.AddWithValue("@purchaseId", purchaseId);
+                        command.Parameters.AddWithValue("@usageDate", DateTime.Now);
+                        command.Parameters.AddWithValue("@location", airportName);
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"Error during pass usage: {ex.Message}");
+                return false;
+            }
         }
     }
 }

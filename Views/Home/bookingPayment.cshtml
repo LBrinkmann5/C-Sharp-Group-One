@@ -1,0 +1,138 @@
+﻿@model BookingPaymentModel
+@{
+	ViewData["Title"] = "Payment";
+	ViewData["PageHead"] = "Enter Payment";
+
+	var basePrice = ViewBag.Price;
+	var passengers = ViewBag.PassengerCount;
+
+	ViewBag.NewPrice = basePrice * passengers;
+
+}
+
+<head>
+	<link rel="stylesheet" href="~/css/payment.css" />
+</head>
+
+<body>
+	<div class="container">
+		<form asp-action="bookingPayment" id="payment-form" name="payment-form" method="post">
+			<div class="payment-back">
+				<fieldset class="payment-set">
+					<legend>Passengers</legend>
+					@for (var i = 1; i <= @ViewBag.PassengerCount; i++)
+					{
+						<label>Passenger @i</label>
+						<label asp-for="Passengers.FirstName">First Name</label>
+						<input type="text" asp-for="Passengers.FirstName" id="FirstName_@i" required>
+						<span class="text-danger" asp-validation-for="Passengers.FirstName"></span>
+						<div class="w-100 d-inline-block"></div>
+						<label asp-for="Passengers.LastName">Last Name</label>
+						<input type="text" asp-for="Passengers.LastName" id="LastName_@i" required>
+						<span class="text-danger" asp-validation-for="Passengers.LastName"></span>
+						<div class="w-100 d-inline-block"></div>
+						<label asp-for="Passengers.MiddleName">Middle Name</label>
+						<input type="text" asp-for="Passengers.MiddleName" id="MiddleName_@i" />
+					}
+
+
+				</fieldset>  
+
+
+
+				<fieldset class="payment-set">
+					<legend>Credit Card Information</legend>
+					<label class="me-md-2" asp-for="BookingPayment.TBcardNumber">Card Number:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-50" type="text" asp-for="BookingPayment.TBcardNumber" id="TBcardNumber" required><span class="text-danger" asp-validation-for="BookingPayment.TBcardNumber"></span>
+
+					<div class="w-100 d-inline-block"></div>
+
+					<label class="me-md-2" for="TBsecurityCode">Security Code:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25 p-1" type="text" id="TBsecurityCode" asp-for="BookingPayment.TBsecurityCode" placeholder="123" required><span class="text-danger" asp-validation-for="BookingPayment.TBsecurityCode"></span>
+
+
+
+					<div class="w-100 d-block d-md-none"></div>
+					<label class="mx-md-3" asp-for="BookingPayment.TBexpiryDate">Expiry Date:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25  p-1" type="text" id="TBexpiryDate" asp-for="BookingPayment.TBexpiryDate" placeholder="MM/YY" required><span class="text-danger" asp-validation-for="BookingPayment.TBexpiryDate"></span>
+
+					<div class="w-100 d-inline-block"></div>
+
+					<label asp-for="BookingPayment.TBcardName">Cardholder Name:</label>
+					<input class="w-75" type="text" id="TBcardName" asp-for="BookingPayment.TBcardName" required><span class="text-danger" asp-validation-for="BookingPayment.TBcardName"></span>
+				</fieldset>
+
+				<fieldset class="payment-set">
+					<legend>Billing Address</legend>
+					<label class="w-100" asp-for="BookingPayment.Selcountry">Country</label>
+					<select class="w-75 countrySelect" id="Selcountry" asp-for="BookingPayment.Selcountry" required><span class="text-danger" asp-validation-for="BookingPayment.Selcountry"></span>
+						<option value="" disabled selected>Select a country</option>
+						<option value="US">United States</option>
+						<option value="CA">Canada</option>
+						<option value="MX">Mexico</option>
+						<!-- Add more countries as needed -->
+					</select>
+					<div class="w-100 d-inline-block"></div>
+					<label class="w-100" asp-for="BookingPayment.TBaddress">Address:</label>
+					<input class="w-75" type="text" id="TBaddress" asp-for="BookingPayment.TBaddress" required><span class="text-danger" asp-validation-for="BookingPayment.TBaddress"></span>
+
+					<div class="w-100 d-inline-block"></div>
+
+					<label class="w-100" asp-for="BookingPayment.TBoptionalAddress">Apt/Suite: </label>
+
+					<input class="w-75" type="text" id="TBoptionalAddress" asp-for="BookingPayment.TBoptionalAddress" placeholder="Optional">
+					<div class="w-100 d-inline-block"></div>
+
+					<label class="me-md-2" asp-for="BookingPayment.TBcity">City:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25" type="text" id="TBcity" asp-for="BookingPayment.TBcity" required><span class="text-danger" asp-validation-for="BookingPayment.TBcity"></span>
+					<div class="w-100 d-block d-md-none"></div>
+					<label class="mx-md-3" asp-for="BookingPayment.TBstate">State:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25" type="text" id="TBstate" asp-for="BookingPayment.TBstate" required><span class="text-danger" asp-validation-for="BookingPayment.TBstate"></span>
+					<div class="w-100 d-block d-md-none"></div>
+					<label class="mx-md-3" asp-for="BookingPayment.TBzip">Zip Code:</label>
+					<div class="w-100 d-block d-md-none"></div>
+					<input class="w-25" type="text" id="TBzip" asp-for="BookingPayment.TBzip" required><span class="text-danger" asp-validation-for="BookingPayment.TBzip"></span>
+
+					<div class="w-100 d-inline-block"></div>
+
+					<label class="w-100" asp-for="BookingPayment.TBphone">Phone Number:</label>
+					<input class="w-75" type="tel" id="TBphone" asp-for="BookingPayment.TBphone" placeholder="123-456-7890" required><span class="text-danger" asp-validation-for="BookingPayment.TBphone"></span>
+				</fieldset>
+
+				@if (ViewBag.UseFastPass == true && ViewBag.FastPasses != null)
+				{
+					<fieldset> 
+						<legend>Select a Fast Pass</legend>
+						<label asp-for="SelectedFastPassId">Choose Fast Pass:</label>
+						<select id="SelectedFastPassId" asp-for="SelectedFastPassId" required>
+							<option values="" disabled>-- Select --</option>
+							@foreach (var pass in (List<FastPassPurchase>)ViewBag.FastPasses)
+							{
+								<option value="@pass.PurchaseId">@($"#{pass.PurchaseId} - Purchased: #{@pass.PurchaseDate:d} - Type: {pass.PassType}")</option>
+							}
+						</select>
+					</fieldset>
+				}
+
+				<fieldset class="payment-set">
+					<legend>Order Summary</legend>
+					<input type="hidden" asp-for="Price" value="@ViewBag.NewPrice" />
+					<input type="hidden" asp-for="FlightId" value="@ViewBag.Flight" />
+					<input type="hidden" asp-for="UseFastPass" value="@ViewBag.UseFastPass" />
+
+					<p class="order-summary">
+						Ticket Price: <span class="fast-pass-price">@ViewBag.NewPrice</span>.
+					</p>
+					<button type="submit" class="btnSubmit my-3">Buy</button>
+				</fieldset>
+				</div>
+			</form>
+		</div>
+		<script src="~/js/bookingPayment"></script>
+	</body>
+

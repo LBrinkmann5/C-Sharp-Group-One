@@ -13,7 +13,21 @@
     <script src="~/lib/flatpickr/flatpickr.min.js"></script>
     <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/css/login.css"/>
-	
+    <script src="https://cdn.jsdelivr.net/npm/@@floating-ui/core@1.6.9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@floating-ui/dom@1.6.13"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+            // if(@ViewBag.ErrorMessage != "")
+            // {
+            //     const errorMessage = @ViewBag.ErrorMessage;
+            // }
+        const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
+    </script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/login.js"></script>
+    @RenderSection("Scripts", required: false)
+
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -170,20 +184,6 @@
         </div>
     </div>
     @RenderBody()
-    <script src="https://cdn.jsdelivr.net/npm/@@floating-ui/core@1.6.9"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@@floating-ui/dom@1.6.13"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script>
-            // if(@ViewBag.ErrorMessage != "")
-            // {
-            //     const errorMessage = @ViewBag.ErrorMessage;
-            // }
-        const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
-    </script>
-    <script src="~/js/main.js"></script>
-    <script src="~/js/login.js"></script>
-	@RenderSection("Scripts", required: false)
-    
+
 </body>
 </html>

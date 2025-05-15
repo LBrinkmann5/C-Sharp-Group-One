@@ -96,6 +96,18 @@ $(() =>
         }
     })
 
+    //To change to cost of the product
+    const priceElement = $(".fast-pass-price");
+    const basePrice = parseFloat($("#basePrice").val()) || 0;
+    const price = $("#price");
+    $("#SelpassNum").on("change", function ()
+    {
+        const selectedValue = parseInt($(this).val()) || 4;
+        const totalPrice = basePrice + (selectedValue - 4) * 10;
+        price.val(totalPrice.toFixed(2)); // Update the hidden input value
+        priceElement.text(`$${totalPrice.toFixed(2)}`);
+    });
+
     
 
 });
